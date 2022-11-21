@@ -1,0 +1,6 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.guides.bracketPairs": "active",
+  "cSpell.words": ["dataurlnewwindow", "qrcode", "qrdata", "تذكرة"]
+}

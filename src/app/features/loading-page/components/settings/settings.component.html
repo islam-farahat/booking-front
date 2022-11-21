@@ -1,0 +1,115 @@
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="بيانات التذكرة">
+    <form
+      [formGroup]="ticketDetails"
+      (submit)="submit()"
+      class="w-25 mx-auto p-3"
+    >
+      <div>
+        <mat-form-field class="w-100" appearance="fill">
+          <mat-label>رقم الجوال</mat-label>
+          <input
+            formControlName="mobile"
+            type="text"
+            matInput
+            placeholder="رقم الجوال"
+          />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="w-100" appearance="fill">
+          <mat-label>الترخيص</mat-label>
+          <input
+            formControlName="license"
+            type="text"
+            matInput
+            placeholder="الترخيص"
+          />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="w-100" appearance="fill">
+          <mat-label>الشروط و الاحكام</mat-label>
+          <textarea title="Terms" formControlName="terms" matInput></textarea>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <button mat-flat-button color="primary" type="submit">تعديل</button>
+      </div>
+    </form>
+  </mat-tab>
+  <mat-tab label="بيانات العملاء">
+    <app-bus-info></app-bus-info>
+  </mat-tab>
+  <mat-tab label="الحسابات">
+    <div class="container-fluid">
+      <div class="row p-3">
+        <div class="col-4">
+          <mat-card class="bg-primary text-white">
+            <mat-card-title class="text-center"> الاجمالي </mat-card-title>
+            <mat-divider class="py-1"></mat-divider>
+            <div class="text-center p-3 display-6">50</div>
+          </mat-card>
+        </div>
+        <div class="col-4">
+          <mat-card class="bg-warning text-white">
+            <mat-card-title class="text-center"> الضرائب </mat-card-title>
+            <mat-divider class="py-1"></mat-divider>
+            <div class="text-center p-3 display-6">50</div>
+          </mat-card>
+        </div>
+        <div class="col-4">
+          <mat-card class="bg-danger text-white">
+            <mat-card-title class="text-center"> المرتجع </mat-card-title>
+            <mat-divider class="py-1"></mat-divider>
+            <div class="text-center p-3 display-6">50</div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="المبيعات">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-center align-items-center">
+        <mat-form-field>
+          <mat-label>بحث</mat-label>
+          <input matInput (keyup)="search($event)" placeholder="بحث" #input />
+        </mat-form-field>
+      </div>
+
+      <div>
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                رقم التذكرة
+              </th>
+              <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>السعر</th>
+              <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>التاريخ</th>
+              <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+
+          <mat-paginator
+            [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements"
+          >
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

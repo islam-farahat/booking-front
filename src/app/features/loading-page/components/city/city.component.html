@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-5 p-3">
+      <div class="row">
+        <div class="col-12">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>اسم المحافظة</mat-label>
+            <input
+              title="City Name"
+              matInput
+              type="text"
+              [formControl]="city"
+            />
+          </mat-form-field>
+        </div>
+
+        <div class="col-12">
+          <button
+            type="button"
+            mat-flat-button
+            color="primary"
+            (click)="addCity()"
+          >
+            اضافة محافظة
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-7 p-3">
+      <mat-selection-list #shoes [multiple]="false">
+        <mat-list-option
+          *ngFor="let city of cites; index as i"
+          [value]="city.cityName"
+        >
+          <div class="row">
+            <div class="col-2">
+              <!-- <button
+                type="button"
+                mat-flat-button
+                color="warn"
+                (click)="removeCity(city, i)"
+              >
+                حذف المحافظة
+              </button> -->
+            </div>
+            <div class="col-10 text-start">
+              {{ city.cityName }}
+            </div>
+          </div>
+        </mat-list-option>
+      </mat-selection-list>
+    </div>
+  </div>
+</div>

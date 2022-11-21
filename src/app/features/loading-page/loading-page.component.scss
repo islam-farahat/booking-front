@@ -1,0 +1,22 @@
+.bg-image {
+  background-image: url("/assets/images/bus-logo.jpg");
+
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 98vw;
+  height: 90vh;
+  background-size: contain;
+  opacity: 0.5;
+}
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}
+mat-list {
+  flex-grow: 1;
+
+  overflow: auto;
+}

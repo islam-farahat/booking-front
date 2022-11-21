@@ -1,0 +1,84 @@
+<div class="container-fluid">
+  <form [formGroup]="trip" (ngSubmit)="addTrip()">
+    <div class="row p-3">
+      <div class="col-6">
+        <mat-form-field appearance="fill" class="w-75">
+          <mat-label>من</mat-label>
+          <mat-select formControlName="from" required>
+            <mat-option *ngFor="let city of cites" [value]="city.cityName">
+              {{ city.cityName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-6">
+        <mat-form-field appearance="fill" class="w-75">
+          <mat-label>الي</mat-label>
+          <mat-select formControlName="to" required>
+            <mat-option *ngFor="let city of cites" [value]="city.cityName">
+              {{ city.cityName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="fill" class="w-75">
+          <mat-label>تاريخ السفر</mat-label>
+          <input
+            formControlName="date"
+            title="Travel Date"
+            matInput
+            [matDatepicker]="picker"
+          />
+          <mat-hint>يوم / شهر / سنة</mat-hint>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="outline" class="w-75">
+          <mat-label>وقت المغادرة</mat-label>
+          <input formControlName="time" title="Time" matInput type="time" />
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="outline" class="w-75">
+          <mat-label>السعر</mat-label>
+          <input formControlName="price" title="Price" matInput />
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="fill" class="w-75">
+          <mat-label>رقم الاتوبيس</mat-label>
+          <mat-select formControlName="busNumber" required>
+            <mat-option *ngFor="let bus of buses" [value]="bus.busNum">
+              {{ bus.busNum }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="fill" class="w-75">
+          <mat-label>عدد المقاعد</mat-label>
+          <mat-select formControlName="seatsCount" required>
+            <mat-option
+              *ngFor="let seatCount of seatsCount"
+              [value]="seatCount"
+            >
+              {{ seatCount }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-12">
+        <button type="submit" mat-flat-button color="primary">
+          تسجيل رحلة
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

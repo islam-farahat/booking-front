@@ -1,0 +1,24 @@
+<div
+  class="d-flex justify-content-between nav navbar-dark shadow-sm fixed-top bg-teal px-3 py-2"
+>
+  <h2 class="navbar-brand" routerLink="/home">الكسار</h2>
+  <div>
+    <button
+      title="menu"
+      type="button"
+      mat-icon-button
+      [matMenuTriggerFor]="belowMenu"
+    >
+      <div
+        class="rounded-circle d-flex justify-content-center align-content-center bg-light"
+        style="width: 40px; height: 40px"
+      ></div>
+    </button>
+  </div>
+</div>
+<mat-menu #belowMenu="matMenu" yPosition="below">
+  <button mat-menu-item routerLink="/home/settings">الاعدادات</button>
+  <button mat-menu-item routerLink="/home/add">اضافة رحلات</button>
+  <button mat-menu-item routerLink="/auth/register">تسجيل مستخدم جديد</button>
+  <button mat-menu-item (click)="logout()">تسجيل خروج</button>
+</mat-menu>

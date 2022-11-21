@@ -1,0 +1,49 @@
+<div class="row align-items-center vh-75 mt-5">
+  <mat-card class="w-25 mx-auto bg-light mt-5">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="text-center">اهلا بعودتك</h1>
+      </div>
+
+      <span>
+        <hr />
+      </span>
+
+      <form [formGroup]="user" (ngSubmit)="onsubmit()">
+        <div class="col-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>البريد الالكتروني</mat-label>
+            <input
+              title="email"
+              type="email"
+              matInput
+              formControlName="email"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>كلمة السر</mat-label>
+            <input
+              title="password"
+              type="password"
+              matInput
+              formControlName="password"
+            />
+            <mat-icon matSuffix>visibility</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div class="col-12">
+          <button class="w-100" color="primary" type="submit" mat-raised-button>
+            دخول
+          </button>
+        </div>
+      </form>
+
+      <div class="col-12 text-center mt-3">
+        <a class="nav-link link-primary">هل نيست كلمة السر ؟</a>
+      </div>
+    </div>
+  </mat-card>
+</div>

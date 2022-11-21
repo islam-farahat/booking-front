@@ -1,0 +1,107 @@
+<div class="row">
+  <div class="col-12">
+    <form [formGroup]="trip">
+      <div class="row">
+        <div class="col-4">
+          <mat-form-field appearance="fill" class="w-75">
+            <mat-label>من</mat-label>
+            <mat-select formControlName="from" required>
+              <mat-option *ngFor="let city of cites" [value]="city.cityName">
+                {{ city.cityName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-4">
+          <mat-form-field appearance="fill" class="w-75">
+            <mat-label>الي</mat-label>
+            <mat-select formControlName="to" required>
+              <mat-option *ngFor="let city of cites" [value]="city.cityName">
+                {{ city.cityName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <!-- <div class="col-4">
+          <mat-form-field appearance="fill" class="w-75">
+            <mat-label>وقت السفر</mat-label>
+            <input
+              formControlName="date"
+              title="date"
+              matInput
+              [matDatepicker]="picker"
+            />
+            <mat-hint>يوم / شهر / سنة</mat-hint>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div> -->
+        <div class="col-12">
+          <button mat-flat-button color="primary" (click)="select()">
+            حفظ
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-12">
+    <div *ngFor="let trip of trips">
+      <div class="m-1">
+        <mat-card>
+          <div class="row p-2">
+            <div class="col-3">
+              <button
+                (click)="confirmBus(trip)"
+                mat-raised-button
+                type="button"
+                matStepperNext
+                color="primary"
+              >
+                حجز مقعد
+              </button>
+            </div>
+            <div class="col-9">
+              <div class="row">
+                <div class="col-6">
+                  <div class="row">
+                    <div class="col-12 d-flex">
+                      <span class="w-50">وفت المغادرة</span>
+                      <span class="px-2">:</span>
+                      <span>{{ trip.time }}</span>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="col-12 d-flex">
+                      <span class="w-50">رقم الاتوبيس</span>
+                      <span class="px-2">:</span>
+                      <span>{{ trip.busNumber }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="row">
+                    <div class="col-12 d-flex">
+                      <span class="w-50">المقاعد المتاحة</span>
+                      <span class="px-2">:</span>
+                      <span>{{ trip.seatsCount }}</span>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="col-12 d-flex">
+                      <span class="w-50">السعر</span>
+                      <span class="px-2">:</span>
+                      <span>{{ trip.price }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

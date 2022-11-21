@@ -1,0 +1,137 @@
+<div class="container">
+  <div class="row">
+    <div id="contentToPrint">
+      <div class="row border-3 mx-auto border-dark border" style="width: 210mm">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-4 text-end">
+              <h1>الكسار</h1>
+              <h3>لخدمات العمرة و الزيارة</h3>
+            </div>
+            <div class="col-4 text-center">
+              <div>تذكرة سفر</div>
+            </div>
+            <div class="col-4 text-start">
+              <div>
+                <img title="logo" width="100px" src="/assets/images/logo.jpg" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6 d-flex">
+                <div class="w-50">ترخيص</div>
+                <div class="w-50">{{ license }}</div>
+              </div>
+              <div class="col-6 d-flex">
+                <div class="w-50">الهاتف</div>
+                <div class="w-50">{{ mobile }}</div>
+              </div>
+              <div class="col-6 d-flex">
+                <div class="w-50">رقم التذكرة</div>
+                <div class="w-50">{{ ticketid }}</div>
+              </div>
+              <div class="col-6 d-flex">
+                <div class="w-50">التاريخ</div>
+                <div class="w-50">{{ date | date: "shortDate" }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 text-center bg-light">بيانات العميل</div>
+
+                <div class="col-12">
+                  <div class="row" *ngFor="let ticket of tickets">
+                    <div class="col-6 d-flex border-1 border-dark border">
+                      <div class="w-50">الاسم</div>
+                      <div class="w-50">{{ ticket.fullName }}</div>
+                    </div>
+                    <div class="col-6 d-flex border-1 border-dark border">
+                      <div class="w-50">رقم الاقامة</div>
+                      <div class="w-50">{{ ticket.idNumber }}</div>
+                    </div>
+                    <div class="col-6 d-flex">
+                      <div class="w-50">الجنسية</div>
+                      <div class="w-50">{{ ticket.nationality }}</div>
+                    </div>
+                    <div class="col-6 d-flex border-1 border-dark border">
+                      <div class="w-50">رقم الجوال</div>
+                      <div class="w-50">{{ ticket.mobile }}</div>
+                    </div>
+
+                    <div class="col-6 d-flex border-1 border-dark border">
+                      <div class="w-50">رقم المقعد</div>
+                      <div class="w-50">{{ ticket.chairNumber }}</div>
+                    </div>
+                    <mat-divider class="m-3"></mat-divider>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 text-center bg-light">بيانات الرحلة</div>
+                <div class="col-6 d-flex border-1 border-dark border">
+                  <div class="w-50">اتجاة الرحلة</div>
+                  <div class="w-50">{{ city }}</div>
+                </div>
+                <div class="col-6 d-flex border-1 border-dark border">
+                  <div class="w-50">رقم الباص</div>
+                  <div class="w-50">{{ busId }}</div>
+                </div>
+                <!-- <div class="col-6 d-flex border-1 border-dark border">
+                  <div class="w-50">نوع السكن</div>
+                  <div class="w-50">{{ roomType }}</div>
+                </div> -->
+
+                <div class="col-6 d-flex border-1 border-dark border">
+                  <div class="w-50">الاجمالي</div>
+                  <div class="w-50">{{ total }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 text-center bg-light">مواعيد الرحلة</div>
+
+                <div class="col-6 d-flex border-1 border-dark border">
+                  <div class="w-50">الموافق</div>
+                  <div class="w-50">{{ travelDate }}</div>
+                </div>
+
+                <div class="col-6 d-flex border-1 border-dark border">
+                  <div class="w-50">موعد المغادرة</div>
+                  <div class="w-50">{{ travelTime }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <h3 *ngFor="let term of terms">{{ term }}</h3>
+        </div>
+        <div class="col-12">
+          <qrcode
+            [qrdata]="qrCodeStr"
+            [width]="150"
+            [errorCorrectionLevel]="'M'"
+          ></qrcode>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 text-right">
+      <button
+        type="button"
+        mat-flat-button
+        color="primary"
+        (click)="Convert_HTML_To_PDF()"
+      >
+        طباعة
+      </button>
+    </div>
+  </div>
+</div>
