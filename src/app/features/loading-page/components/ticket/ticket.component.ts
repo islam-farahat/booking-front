@@ -3,6 +3,7 @@ import { TravelRegisterService } from './../../services/travel-register.service'
 import { BusSelectService } from './../../services/bus-select.service';
 import { Component, OnInit } from '@angular/core';
 import { jsPDF } from 'jspdf';
+import * as qrcode from 'qrcode';
 
 import html2canvas from 'html2canvas';
 @Component({
@@ -21,7 +22,7 @@ export class TicketComponent implements OnInit {
   mobile!: string;
   city!: string;
   total!: string;
-  busId!: number;
+  tripId!: number;
   roomType!: string;
 
   travelDate!: string;
@@ -59,13 +60,13 @@ export class TicketComponent implements OnInit {
       });
     }
   }
-  getBusId() {
-    this.busSelect.busId.subscribe((value) => {
-      this.busId = value;
+  getTripId() {
+    this.busSelect.tripId.subscribe((value) => {
+      this.tripId = value;
     });
   }
   getTrip() {
-    this.travel.getTrip(this.busId).subscribe((value) => {
+    this.travel.getTrip(this.tripId).subscribe((value) => {
       this.city = value.to;
       this.total = value.price;
       this.travelDate = value.date;
@@ -86,14 +87,18 @@ export class TicketComponent implements OnInit {
     await this.delay(500);
     this.getTickets();
     await this.delay(500);
-    this.getBusId();
+    this.getTripId();
     await this.delay(500);
     this.getTrip();
   }
 
   Convert_HTML_To_PDF() {
+    qrcode.toCanvas(document.getElementById('qrcode'), 'islam');
+    // let x = q.create('http://jindo.dev.naver.com/collie');
+
+    // new QRCode(document.getElementById("qrcode"), "http://jindo.dev.naver.com/collie");
     this.travel
-      .addInvoice({ ticketId: this.ticketId, tripId: this.busId })
+      .addInvoice({ ticketId: this.ticketId, tripId: this.tripId })
       .subscribe((value) => {});
 
     // let HTML_Width = document.querySelector('#contentToPrint')?.clientWidth;

@@ -4,12 +4,17 @@ import { User } from './../models/user.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthGuardService } from './auth-guard.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private authGard: AuthGuardService
+  ) {}
 
   register(user: User): Observable<User> {
     return this.http.post<User>(`${environment.API_URL}/auth/register`, user);
@@ -23,7 +28,9 @@ export class AuthService {
   deleteUser(user: User): Observable<User> {
     return this.http.delete<User>(`${environment.API_URL}/auth/delete`);
   }
+
   logout() {
+    this.authGard.loggedIn.next(false);
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     this.router.navigate(['/auth/login']);

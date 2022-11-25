@@ -1,0 +1,125 @@
+<div class="container">
+  <div class="row">
+    <div class="col-2">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>اختار التاريخ</mat-label>
+        <input [(ngModel)]="date" matInput [matDatepicker]="picker" />
+
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>اسم المستلم</mat-label>
+        <input
+          [(ngModel)]="name"
+          type="text"
+          matInput
+          placeholder="اسم المستلم"
+        />
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>المبلغ</mat-label>
+        <input [(ngModel)]="price" type="text" matInput placeholder="المبلغ" />
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>عدد الاتوبيسات</mat-label>
+        <input
+          [(ngModel)]="count"
+          type="text"
+          matInput
+          placeholder="عدد الاتوبيسات"
+        />
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>من</mat-label>
+        <input [(ngModel)]="from" type="text" matInput placeholder="من" />
+      </mat-form-field>
+    </div>
+    <div class="col-2">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>الي</mat-label>
+        <input [(ngModel)]="to" type="text" matInput placeholder="الي" />
+      </mat-form-field>
+    </div>
+
+    <div id="contentToPrint">
+      <div class="row border-3 mx-auto border-dark border" style="width: 210mm">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-4 text-end">
+              <h1>الكسار</h1>
+              <h3>لخدمات العمرة و الزيارة</h3>
+            </div>
+            <div class="col-4 text-center">
+              <div>سند قبض</div>
+            </div>
+            <div class="col-4 text-start">
+              <div>
+                <img title="logo" width="100px" src="/assets/images/logo.jpg" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6 d-flex">
+                <div class="w-50">ترخيص</div>
+                <div class="w-50"></div>
+              </div>
+              <div class="col-6 d-flex">
+                <div class="w-50">الهاتف</div>
+                <div class="w-50"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 mt-3">
+          <div class="row">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 text-center bg-light">
+                  بسم الله الرحمن الرحيم
+                </div>
+
+                <div class="col-6 my-2">التاريخ :</div>
+                <div class="col-6 my-3">{{ date | date }}</div>
+                <div class="col-6 my-2">استلمت من المكرم :</div>
+                <div class="col-6 my-2">{{ name }}</div>
+                <div class="col-6 my-2">مبلغ و قدرة :</div>
+                <div class="col-6 my-2">{{ price }}</div>
+                <div class="col-12 my-2">
+                  و ذلك اجرة تاجير عدد {{ count }} اتوبيس لنقل ركاب من الباحة
+                  الي {{ to }} و العودة
+                </div>
+                <div class="col-12 my-2">
+                  من {{ from }} الي {{ to }} الي {{ from }}
+                </div>
+                <div class="col-6 text-center my-5">الختم</div>
+                <div class="col-6 text-center my-5">المستلم</div>
+                <div class="col-12 py-5 my-5"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 text-right">
+      <button
+        (click)="print()"
+        type="button"
+        mat-flat-button
+        color="primary"
+        class="mb-3"
+      >
+        طباعة
+      </button>
+    </div>
+  </div>
+</div>

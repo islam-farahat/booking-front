@@ -1,3 +1,4 @@
+import { BillDocumentComponent } from './pages/bill-document/bill-document.component';
 import { AuthGuardService } from './../auth/services/auth-guard.service';
 import { SettingsComponent } from './components/settings/settings.component';
 import { AddComponent } from './pages/add/add.component';
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: 'settings',
     component: SettingsComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'bill-document',
+    component: BillDocumentComponent,
     canActivate: [AuthGuardService],
   },
 ];

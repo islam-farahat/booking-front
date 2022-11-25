@@ -51,7 +51,7 @@ export class DetailsComponent implements OnInit {
   submit() {
     let busId: number;
     let chairNumber: number[] = [];
-    this.busSelect.busId.subscribe((value) => {
+    this.busSelect.tripId.subscribe((value) => {
       busId = value;
     });
     this.busSelect.chairNumber.subscribe((value) => {

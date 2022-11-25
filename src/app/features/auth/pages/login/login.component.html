@@ -19,6 +19,9 @@
               matInput
               formControlName="email"
             />
+            <mat-error *ngIf="user.controls['email'].invalid">{{
+              getEmailErrorMessage()
+            }}</mat-error>
           </mat-form-field>
         </div>
         <div class="col-12">
@@ -30,20 +33,32 @@
               matInput
               formControlName="password"
             />
+            <mat-error *ngIf="user.controls['password'].invalid">{{
+              getPasswordErrorMessage()
+            }}</mat-error>
             <mat-icon matSuffix>visibility</mat-icon>
           </mat-form-field>
         </div>
 
         <div class="col-12">
-          <button class="w-100" color="primary" type="submit" mat-raised-button>
+          <button
+            [disabled]="
+              user.controls['password'].invalid ||
+              user.controls['email'].invalid
+            "
+            class="w-100"
+            color="primary"
+            type="submit"
+            mat-raised-button
+          >
             دخول
           </button>
         </div>
       </form>
 
-      <div class="col-12 text-center mt-3">
+      <!-- <div class="col-12 text-center mt-3">
         <a class="nav-link link-primary">هل نيست كلمة السر ؟</a>
-      </div>
+      </div> -->
     </div>
   </mat-card>
 </div>

@@ -12,7 +12,7 @@ export class RegisterComponent {
   register = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    email: ['', Validators.required, Validators.email],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
   constructor(
@@ -20,6 +20,26 @@ export class RegisterComponent {
     private auth: AuthService,
     private snackbar: MatSnackBar
   ) {}
+  getEmailErrorMessage() {
+    if (this.register.controls['email'].hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return 'Not a valid Email';
+  }
+  getErrorMessage() {
+    if (this.register.controls['password'].hasError('required')) {
+      return 'You must enter a value';
+    }
+    if (this.register.controls['firstName'].hasError('required')) {
+      return 'You must enter a value';
+    }
+    if (this.register.controls['lastName'].hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return '';
+  }
   submit() {
     this.auth
       .register({

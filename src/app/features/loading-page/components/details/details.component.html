@@ -23,6 +23,8 @@
                 formControlName="mobile"
                 matInput
                 placeholder="رقم الهاتف"
+                type="number"
+                min="0"
               />
             </mat-form-field>
           </div>
@@ -30,6 +32,8 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>رقم الاقامة</mat-label>
               <input
+                type="number"
+                min="0"
                 formControlName="idNumber"
                 matInput
                 placeholder="رقم الاقامة"
@@ -40,9 +44,10 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>الجنسية</mat-label>
               <input
+                type="text"
                 formControlName="nationality"
                 matInput
-                placeholder="رقم الاقامة"
+                placeholder="الجنسية"
               />
             </mat-form-field>
           </div>
@@ -50,13 +55,14 @@
         </div>
       </div>
     </div>
-    <div class="col-12">
+    <div class="col-1">
       <button
+        [disabled]="details.controls['person'].invalid"
         matStepperNext
         type="submit"
         mat-flat-button
         color="primary"
-        style="width: 150px"
+        class="w-100"
       >
         حفظ
       </button>

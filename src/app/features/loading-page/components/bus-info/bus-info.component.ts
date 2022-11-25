@@ -21,6 +21,7 @@ export class BusInfoComponent implements OnInit {
   ngOnInit(): void {}
   search() {
     this.info.splice(0);
+
     this.travel
       .getTicketsByBusId(Number(this.searchBox.value.search))
       .subscribe((search) => {

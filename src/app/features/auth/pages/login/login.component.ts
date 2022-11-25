@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   user = this.fb.group({
-    email: ['', Validators.required],
-    password: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
   });
 
   constructor(
@@ -19,7 +19,20 @@ export class LoginComponent {
     private fb: FormBuilder,
     private router: Router
   ) {}
+  getEmailErrorMessage() {
+    if (this.user.controls['email'].hasError('required')) {
+      return 'You must enter a value';
+    }
 
+    return 'Not a valid Email';
+  }
+  getPasswordErrorMessage() {
+    if (this.user.controls['password'].hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return '';
+  }
   onsubmit() {
     this.auth
       .login({

@@ -23,28 +23,21 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <!-- <div class="col-4">
-          <mat-form-field appearance="fill" class="w-75">
-            <mat-label>وقت السفر</mat-label>
-            <input
-              formControlName="date"
-              title="date"
-              matInput
-              [matDatepicker]="picker"
-            />
-            <mat-hint>يوم / شهر / سنة</mat-hint>
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="picker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-        </div> -->
+
         <div class="col-12">
-          <button mat-flat-button color="primary" (click)="select()">
-            حفظ
+          <button
+            [disabled]="
+              trip.controls['from'].invalid || trip.controls['to'].invalid
+            "
+            type="button"
+            mat-flat-button
+            color="primary"
+            (click)="select()"
+          >
+            عرض
           </button>
         </div>
+        <canvas style="width: 300px; height: 300px" id="qrcode"></canvas>
       </div>
     </form>
   </div>

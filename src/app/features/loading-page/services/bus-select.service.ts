@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class BusSelectService {
-  busId = new BehaviorSubject(0);
+  tripId = new BehaviorSubject(0);
   chairCount = new BehaviorSubject(0);
   chairNumber = new BehaviorSubject([0]);
   ticketId = new BehaviorSubject([0]);

@@ -11,11 +11,13 @@
               type="text"
               [formControl]="city"
             />
+            <mat-error *ngIf="city.invalid">{{ getErrorMessage() }}</mat-error>
           </mat-form-field>
         </div>
 
         <div class="col-12">
           <button
+            [disabled]="city.invalid"
             type="button"
             mat-flat-button
             color="primary"

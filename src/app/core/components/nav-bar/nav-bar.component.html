@@ -1,24 +1,33 @@
 <div
+  style="height: 60px"
   class="d-flex justify-content-between nav navbar-dark shadow-sm fixed-top bg-teal px-3 py-2"
 >
-  <h2 class="navbar-brand" routerLink="/home">الكسار</h2>
+  <a class="navbar-brand fs-3 pt-2" routerLink="/home">الكسار</a>
   <div>
     <button
+      *ngIf="isLoggedIn | async"
+      class="bg-light"
       title="menu"
       type="button"
       mat-icon-button
       [matMenuTriggerFor]="belowMenu"
     >
-      <div
-        class="rounded-circle d-flex justify-content-center align-content-center bg-light"
-        style="width: 40px; height: 40px"
-      ></div>
+      <mat-icon>person</mat-icon>
     </button>
   </div>
 </div>
 <mat-menu #belowMenu="matMenu" yPosition="below">
-  <button mat-menu-item routerLink="/home/settings">الاعدادات</button>
-  <button mat-menu-item routerLink="/home/add">اضافة رحلات</button>
-  <button mat-menu-item routerLink="/auth/register">تسجيل مستخدم جديد</button>
-  <button mat-menu-item (click)="logout()">تسجيل خروج</button>
+  <button type="button" mat-menu-item routerLink="/home/settings">
+    الاعدادات
+  </button>
+  <button type="button" mat-menu-item routerLink="/home/add">
+    اضافة رحلات
+  </button>
+  <button type="button" mat-menu-item routerLink="/auth/register">
+    تسجيل مستخدم جديد
+  </button>
+  <button type="button" mat-menu-item routerLink="/home/bill-document">
+    اضافة سند قبض
+  </button>
+  <button type="button" mat-menu-item (click)="logout()">تسجيل خروج</button>
 </mat-menu>

@@ -35,19 +35,19 @@ export class BookSeatComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.busSelect.busId.subscribe((value) => {
+    this.busSelect.tripId.subscribe((value) => {
       this.id = value;
     });
 
     this.travel.getTrip(this.id!).subscribe((trip) => {
       this.color = trip.seats;
-      if (trip.seatsCount == 48) {
+      if (trip.seatsCount == 47) {
+        this.color[48] = true;
         this.color[49] = true;
       }
     });
   }
   bookRoom() {
-    console.log(this.room.value);
     this.rooms.push({
       roomsCount: this.room.value.roomsCount!,
       roomType: this.room.value.roomType!,
@@ -77,19 +77,15 @@ export class BookSeatComponent implements OnInit {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
   confirm() {
-    console.log(this.chairCount);
-
     this.busSelect.chairCount.next(this.chairCount);
     this.busSelect.chairNumber.next(this.bookedChair);
 
     this.travel.getTrip(this.id!).subscribe(async (t) => {
-      console.log(t.seatsCount);
-
       t.seats = this.color;
       await this.delay(500);
       t.seatsCount = this.sub(t.seatsCount, this.chairCount);
       await this.delay(500);
-      console.log(t.seatsCount);
+
       this.travel.updateTrip(t!).subscribe(async (trip) => {});
     });
   }

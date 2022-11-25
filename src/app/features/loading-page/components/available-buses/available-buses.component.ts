@@ -3,7 +3,7 @@ import { ITrip } from './../../models/trip.model';
 import { TravelRegisterService } from './../../services/travel-register.service';
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ICity } from '../../models/city.model';
 
 @Component({
@@ -15,9 +15,8 @@ export class AvailableBusesComponent implements OnInit {
   trips!: ITrip[];
   cites!: ICity[];
   trip = this.fb.group({
-    from: [''],
-    to: [''],
-    date: [''],
+    from: ['', Validators.required],
+    to: ['', Validators.required],
   });
   constructor(
     private fb: FormBuilder,
@@ -43,6 +42,6 @@ export class AvailableBusesComponent implements OnInit {
   }
 
   confirmBus(trip: ITrip) {
-    this.busSelect.busId.next(trip.id!);
+    this.busSelect.tripId.next(trip.id!);
   }
 }
