@@ -41,7 +41,9 @@
     </form>
   </div>
   <div class="col-12">
-    <!-- <div *ngIf="isTrip">لا يوجد رحلات</div> -->
+    <div *ngIf="isTrip" class="fs-3 p-3 text-center text-warning">
+      لا يوجد رحلات
+    </div>
     <div *ngFor="let trip of trips">
       <div class="m-1">
         <mat-card>

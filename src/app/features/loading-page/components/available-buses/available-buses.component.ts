@@ -33,20 +33,31 @@ export class AvailableBusesComponent implements OnInit {
     });
   }
   select() {
-    this.travel.getTrips().subscribe((buses) => {
-      this.trips = buses.filter((bus) => {
-        console.log(bus.date);
-
-        return (
-          bus.from == this.trip.value.from &&
-          bus.to == this.trip.value.to &&
-          bus.seatsCount > 0
-          // bus.date >= this.date
-        );
-      });
+    this.travel.getTrips().subscribe({
+      next: (buses) => {
+        this.trips = buses.filter((bus) => {
+          return (
+            bus.from == this.trip.value.from &&
+            bus.to == this.trip.value.to &&
+            bus.seatsCount > 0
+          );
+        });
+      },
+      error: (error) => {
+        console.log(error);
+      },
     });
+    this.getLength();
   }
-
+  getLength() {
+    setTimeout(() => {
+      if (this.trips.length > 0) {
+        this.isTrip = false;
+      } else {
+        this.isTrip = true;
+      }
+    }, 500);
+  }
   confirmBus(trip: ITrip) {
     this.busSelect.tripId.next(trip.id!);
   }

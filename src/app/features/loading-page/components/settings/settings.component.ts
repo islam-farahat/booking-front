@@ -12,6 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit, AfterViewInit {
+  total: number = 0;
   dataSource: any;
   invoices: Invoice[] = [];
   tickets: ITicket[] = [];
@@ -53,8 +54,10 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       }
     });
     this.travel.getInvoices().subscribe((value) => {
+      value[0].ticketId.length;
       value.forEach((obj) => {
         this.travel.getTrip(obj.tripId).subscribe((trip) => {
+          this.total += Number(obj.ticketId.length) * Number(trip.price);
           trip.id = obj.id;
 
           this.trips.push(Object.assign({}, trip));
