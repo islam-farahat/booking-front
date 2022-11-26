@@ -1,0 +1,55 @@
+<div class="p-5 bg-light">
+  <div *ngFor="let trip of trips">
+    <div class="m-1">
+      <mat-card class="w-75 mx-auto">
+        <div class="row p-2">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-4">
+                <div class="row">
+                  <div class="col-12 d-flex">
+                    <span class="w-50">وفت المغادرة</span>
+                    <span class="px-2">:</span>
+                    <span>{{ trip.time }}</span>
+                  </div>
+                  <mat-divider></mat-divider>
+                  <div class="col-12 d-flex">
+                    <span class="w-50">رقم الاتوبيس</span>
+                    <span class="px-2">:</span>
+                    <span>{{ trip.busNumber }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="row">
+                  <div class="col-12 d-flex">
+                    <span class="w-50">المقاعد المتاحة</span>
+                    <span class="px-2">:</span>
+                    <span>{{ trip.seatsCount }}</span>
+                  </div>
+                  <mat-divider></mat-divider>
+                  <div class="col-12 d-flex">
+                    <span class="w-50">السعر</span>
+                    <span class="px-2">:</span>
+                    <span>{{ trip.price }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="row">
+                  <div class="col-12 d-flex">
+                    <span class="">التاريخ</span>
+                    <span class="px-2">:</span>
+                    <span>{{ trip.date }}</span>
+                  </div>
+                  <mat-divider></mat-divider>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

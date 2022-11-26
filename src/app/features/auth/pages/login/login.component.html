@@ -36,16 +36,14 @@
             <mat-error *ngIf="user.controls['password'].invalid">{{
               getPasswordErrorMessage()
             }}</mat-error>
-            <mat-icon matSuffix>visibility</mat-icon>
+
+            <!-- <mat-icon matSuffix>visibility</mat-icon> -->
           </mat-form-field>
         </div>
 
         <div class="col-12">
           <button
-            [disabled]="
-              user.controls['password'].invalid ||
-              user.controls['email'].invalid
-            "
+            [disabled]="user.invalid"
             class="w-100"
             color="primary"
             type="submit"
@@ -53,6 +51,12 @@
           >
             دخول
           </button>
+          <mat-error
+            class="text-center"
+            *ngIf="user.errors?.['unauthenticated']"
+          >
+            {{ getErrorMessage() }}
+          </mat-error>
         </div>
       </form>
 

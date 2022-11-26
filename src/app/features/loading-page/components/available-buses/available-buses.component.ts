@@ -12,7 +12,9 @@ import { ICity } from '../../models/city.model';
   styleUrls: ['./available-buses.component.scss'],
 })
 export class AvailableBusesComponent implements OnInit {
-  trips!: ITrip[];
+  date!: Date;
+  isTrip: boolean = false;
+  trips: ITrip[] = [];
   cites!: ICity[];
   trip = this.fb.group({
     from: ['', Validators.required],
@@ -25,6 +27,7 @@ export class AvailableBusesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.date = new Date();
     this.travel.getCity().subscribe((cites) => {
       this.cites = cites;
     });
@@ -32,10 +35,13 @@ export class AvailableBusesComponent implements OnInit {
   select() {
     this.travel.getTrips().subscribe((buses) => {
       this.trips = buses.filter((bus) => {
+        console.log(bus.date);
+
         return (
           bus.from == this.trip.value.from &&
           bus.to == this.trip.value.to &&
           bus.seatsCount > 0
+          // bus.date >= this.date
         );
       });
     });

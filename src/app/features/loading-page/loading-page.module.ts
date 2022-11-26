@@ -17,6 +17,7 @@ import { TeravalComponent } from './components/teraval/teraval.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { BusInfoComponent } from './components/bus-info/bus-info.component';
 import { BillDocumentComponent } from './pages/bill-document/bill-document.component';
+import { AllTripsComponent } from './components/all-trips/all-trips.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { BillDocumentComponent } from './pages/bill-document/bill-document.compo
     SettingsComponent,
     BusInfoComponent,
     BillDocumentComponent,
+    AllTripsComponent,
   ],
   imports: [
     CommonModule,

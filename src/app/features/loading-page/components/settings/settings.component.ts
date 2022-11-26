@@ -1,4 +1,3 @@
-import { LoginComponent } from './../../../auth/pages/login/login.component';
 import { ITrip } from './../../models/trip.model';
 import { ITicket } from './../../models/ticket.model';
 import { Invoice } from './../../models/invoice.model';
@@ -6,8 +5,6 @@ import { TravelRegisterService } from './../../services/travel-register.service'
 import { FormBuilder } from '@angular/forms';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-settings',
@@ -15,26 +12,20 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit, AfterViewInit {
+  dataSource: any;
   invoices: Invoice[] = [];
   tickets: ITicket[] = [];
   trips: ITrip[] = [];
-  dataSource!: any;
+
   displayedColumns: string[] = ['id', 'price', 'date'];
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+
   ticketDetails = this.fb.group({
     license: [''],
     mobile: [''],
     terms: [''],
   });
-  constructor(private fb: FormBuilder, private travel: TravelRegisterService) {
-    this.dataSource = new MatTableDataSource<ITrip>(this.trips);
-    this.getInvoices();
-  }
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
+  constructor(private fb: FormBuilder, private travel: TravelRegisterService) {}
+  ngAfterViewInit(): void {}
 
   ngOnInit(): void {
     this.travel.getTicketDetailsByName('الكسار').subscribe((value) => {
@@ -61,26 +52,16 @@ export class SettingsComponent implements OnInit, AfterViewInit {
           });
       }
     });
-  }
-  search(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-
-    this.dataSource.paginator = this.paginator;
-  }
-  getInvoices() {
     this.travel.getInvoices().subscribe((value) => {
       value.forEach((obj) => {
         this.travel.getTrip(obj.tripId).subscribe((trip) => {
           trip.id = obj.id;
+
           this.trips.push(Object.assign({}, trip));
         });
       });
     });
+    this.dataSource = new MatTableDataSource<ITrip>(this.trips);
   }
 
   submit() {

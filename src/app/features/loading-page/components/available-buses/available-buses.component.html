@@ -37,11 +37,11 @@
             عرض
           </button>
         </div>
-        <canvas style="width: 300px; height: 300px" id="qrcode"></canvas>
       </div>
     </form>
   </div>
   <div class="col-12">
+    <!-- <div *ngIf="isTrip">لا يوجد رحلات</div> -->
     <div *ngFor="let trip of trips">
       <div class="m-1">
         <mat-card>
@@ -59,7 +59,7 @@
             </div>
             <div class="col-9">
               <div class="row">
-                <div class="col-6">
+                <div class="col-4">
                   <div class="row">
                     <div class="col-12 d-flex">
                       <span class="w-50">وفت المغادرة</span>
@@ -75,7 +75,7 @@
                   </div>
                 </div>
 
-                <div class="col-6">
+                <div class="col-4">
                   <div class="row">
                     <div class="col-12 d-flex">
                       <span class="w-50">المقاعد المتاحة</span>
@@ -88,6 +88,16 @@
                       <span class="px-2">:</span>
                       <span>{{ trip.price }}</span>
                     </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="row">
+                    <div class="col-12 d-flex">
+                      <span class="">التاريخ</span>
+                      <span class="px-2">:</span>
+                      <span>{{ trip.date }}</span>
+                    </div>
+                    <mat-divider></mat-divider>
                   </div>
                 </div>
               </div>
