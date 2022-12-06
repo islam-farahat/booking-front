@@ -54,11 +54,11 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       }
     });
     this.travel.getInvoices().subscribe((value) => {
-      value[0].ticketId.length;
       value.forEach((obj) => {
         this.travel.getTrip(obj.tripId).subscribe((trip) => {
-          this.total += Number(obj.ticketId.length) * Number(trip.price);
+          this.total += obj.ticketId.length * Number(trip.price);
           trip.id = obj.id;
+          trip.price = (Number(trip.price) * obj.ticketId.length).toString();
 
           this.trips.push(Object.assign({}, trip));
         });

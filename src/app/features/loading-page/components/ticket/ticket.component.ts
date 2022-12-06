@@ -3,7 +3,6 @@ import { TravelRegisterService } from './../../services/travel-register.service'
 import { BusSelectService } from './../../services/bus-select.service';
 import { Component, OnInit } from '@angular/core';
 import { jsPDF } from 'jspdf';
-import * as qrcode from 'qrcode';
 
 import html2canvas from 'html2canvas';
 @Component({
@@ -12,6 +11,8 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./ticket.component.scss'],
 })
 export class TicketComponent implements OnInit {
+  qr =
+    'https://chart.googleapis.com/chart?cht=qr&chl=Hello+World&chs=160x160&chld=L|0';
   terms: string[] = [];
   chairCount!: number;
   id!: number;
@@ -74,6 +75,10 @@ export class TicketComponent implements OnInit {
     });
   }
   async ngOnInit() {
+    this.qr =
+      'https://chart.googleapis.com/chart?cht=qr&chl=' +
+      'اسلام مصطفي' +
+      '&chs=160x160&chld=L|0';
     this.travel.getTicketDetailsByName('الكسار').subscribe((value) => {
       this.license = value.license;
       this.mobile = value.mobile;
@@ -93,7 +98,6 @@ export class TicketComponent implements OnInit {
   }
 
   Convert_HTML_To_PDF() {
-    qrcode.toCanvas(document.getElementById('qrcode'), 'islam');
     // let x = q.create('http://jindo.dev.naver.com/collie');
 
     // new QRCode(document.getElementById("qrcode"), "http://jindo.dev.naver.com/collie");

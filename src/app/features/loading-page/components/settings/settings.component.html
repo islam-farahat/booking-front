@@ -55,27 +55,29 @@
     <ng-template matTabContent>
       <div class="container-fluid">
         <div class="row p-3">
-          <div class="col-4">
+          <div class="col-6">
             <mat-card class="bg-primary text-white">
               <mat-card-title class="text-center"> الاجمالي </mat-card-title>
               <mat-divider class="py-1"></mat-divider>
               <div class="text-center p-3 display-6">{{ total }}</div>
             </mat-card>
           </div>
-          <div class="col-4">
+          <div class="col-6">
             <mat-card class="bg-warning text-white">
               <mat-card-title class="text-center"> الضرائب </mat-card-title>
               <mat-divider class="py-1"></mat-divider>
-              <div class="text-center p-3 display-6">50</div>
+              <div class="text-center p-3 display-6">
+                {{ total * 0.15 }}
+              </div>
             </mat-card>
           </div>
-          <div class="col-4">
+          <!-- <div class="col-4">
             <mat-card class="bg-danger text-white">
               <mat-card-title class="text-center"> المرتجع </mat-card-title>
               <mat-divider class="py-1"></mat-divider>
               <div class="text-center p-3 display-6">50</div>
             </mat-card>
-          </div>
+          </div> -->
         </div>
       </div>
     </ng-template>
