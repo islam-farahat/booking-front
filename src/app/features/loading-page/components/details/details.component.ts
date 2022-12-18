@@ -61,14 +61,18 @@ export class DetailsComponent implements OnInit {
       this.travel
         .addTicket({
           fullName: this.details.value['person'][i]['fullName'],
-          mobile: this.details.value['person'][i]['mobile'],
+          mobile: String(this.details.value['person'][i]['mobile']),
           nationality: this.details.value['person'][i]['nationality'],
           idNumber: this.details.value['person'][i]['idNumber'],
           busNumber: busId!,
           chairNumber: chairNumber[i]!,
         })
-        .subscribe((ticket) => {
-          this.ticketId[i] = ticket.id!;
+        .subscribe({
+          error: (e) => {},
+          next: (ticket) => {
+            this.ticketId[i] = ticket.id!;
+          },
+          complete: () => {},
         });
     }
     this.busSelect.ticketId.next(this.ticketId);

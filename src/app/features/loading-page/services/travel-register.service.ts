@@ -8,7 +8,6 @@ import { Bus } from './../models/bus.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -23,11 +22,9 @@ export class TravelRegisterService {
   addBus(bus: Bus): Observable<Bus> {
     return this.http.post<Bus>(`${environment.API_URL}/buses`, bus);
   }
-
   removeBus(id: number) {
     return this.http.delete(`${environment.API_URL}/buses/${id}`);
   }
-
   addCity(city: ICity): Observable<ICity> {
     return this.http.post<ICity>(`${environment.API_URL}/city`, city);
   }
@@ -37,7 +34,6 @@ export class TravelRegisterService {
   getCity(): Observable<ICity[]> {
     return this.http.get<ICity[]>(`${environment.API_URL}/city`);
   }
-
   getTrips(): Observable<ITrip[]> {
     return this.http.get<ITrip[]>(`${environment.API_URL}/trip`);
   }
@@ -50,17 +46,12 @@ export class TravelRegisterService {
   updateTrip(trip: ITrip): Observable<ITrip> {
     return this.http.put<ITrip>(`${environment.API_URL}/trip/${trip.id}`, trip);
   }
-
-  removeTrip() {}
-
   addTicket(ticket: ITicket): Observable<ITicket> {
     return this.http.post<ITicket>(`${environment.API_URL}/ticket`, ticket);
   }
-
   getTicket(ticketId: number): Observable<ITicket> {
     return this.http.get<ITicket>(`${environment.API_URL}/ticket/${ticketId}`);
   }
-
   addTicketDetails(ticketDetails: ITicketDetails): Observable<ITicketDetails> {
     return this.http.post<ITicketDetails>(
       `${environment.API_URL}/ticket-details`,
@@ -85,7 +76,6 @@ export class TravelRegisterService {
       `${environment.API_URL}/ticket-details`
     );
   }
-
   getTicketsByBusId(busId: number): Observable<ITicket[]> {
     return this.http.get<ITicket[]>(
       `${environment.API_URL}/ticket/info/${busId}`

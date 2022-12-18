@@ -20,6 +20,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
 const materialModules = [
   MatTabsModule,
   MatFormFieldModule,
@@ -42,6 +43,7 @@ const materialModules = [
   MatTableModule,
   MatPaginatorModule,
   MatSnackBarModule,
+  MatSidenavModule,
 ];
 
 @NgModule({

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div id="contentToPrint">
-      <div class="row border-3 mx-auto border-dark border" style="width: 210mm">
+      <div class="row border-3 mx-auto border-dark border pdf-width">
         <div class="col-12">
           <div class="row">
             <div class="col-4 text-end">
@@ -27,11 +27,17 @@
               </div>
               <div class="col-6 d-flex">
                 <div class="w-50">رقم التذكرة</div>
-                <div class="w-50">{{ ticketid }}</div>
+                <div class="w-50">
+                  <i *ngIf="(ticketsId | async)![0]">{{
+                    (ticketsId | async)![0]
+                  }}</i>
+                </div>
               </div>
               <div class="col-6 d-flex">
                 <div class="w-50">التاريخ</div>
-                <div class="w-50">{{ date | date : "shortDate" }}</div>
+                <div class="w-50">
+                  {{ currentDate | date }}
+                </div>
               </div>
             </div>
           </div>
@@ -47,24 +53,34 @@
                   <div class="row" *ngFor="let ticket of tickets">
                     <div class="col-6 d-flex border-1 border-dark border">
                       <div class="w-50">الاسم</div>
-                      <div class="w-50">{{ ticket.fullName }}</div>
+                      <div class="w-50">
+                        {{ ticket.fullName }}
+                      </div>
                     </div>
                     <div class="col-6 d-flex border-1 border-dark border">
                       <div class="w-50">رقم الاقامة</div>
-                      <div class="w-50">{{ ticket.idNumber }}</div>
+                      <div class="w-50">
+                        {{ ticket.idNumber }}
+                      </div>
                     </div>
                     <div class="col-6 d-flex">
                       <div class="w-50">الجنسية</div>
-                      <div class="w-50">{{ ticket.nationality }}</div>
+                      <div class="w-50">
+                        {{ ticket.nationality }}
+                      </div>
                     </div>
                     <div class="col-6 d-flex border-1 border-dark border">
                       <div class="w-50">رقم الجوال</div>
-                      <div class="w-50">{{ ticket.mobile }}</div>
+                      <div class="w-50">
+                        {{ ticket.mobile }}
+                      </div>
                     </div>
 
                     <div class="col-6 d-flex border-1 border-dark border">
                       <div class="w-50">رقم المقعد</div>
-                      <div class="w-50">{{ ticket.chairNumber }}</div>
+                      <div class="w-50">
+                        {{ ticket.chairNumber }}
+                      </div>
                     </div>
                     <mat-divider class="m-3"></mat-divider>
                   </div>
@@ -76,20 +92,22 @@
                 <div class="col-12 text-center bg-light">بيانات الرحلة</div>
                 <div class="col-6 d-flex border-1 border-dark border">
                   <div class="w-50">اتجاة الرحلة</div>
-                  <div class="w-50">{{ city }}</div>
+                  <div class="w-50">
+                    <i *ngIf="trip.to">
+                      {{ trip.to }}
+                    </i>
+                  </div>
                 </div>
                 <div class="col-6 d-flex border-1 border-dark border">
                   <div class="w-50">رقم الرحلة</div>
-                  <div class="w-50">{{ tripId }}</div>
+                  <div class="w-50">{{ tripId | async }}</div>
                 </div>
-                <!-- <div class="col-6 d-flex border-1 border-dark border">
-                  <div class="w-50">نوع السكن</div>
-                  <div class="w-50">{{ roomType }}</div>
-                </div> -->
 
                 <div class="col-6 d-flex border-1 border-dark border">
                   <div class="w-50">الاجمالي</div>
-                  <div class="w-50">{{ total }}</div>
+                  <div class="w-50">
+                    {{ number(trip.price) * (chairCount | async)! }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -99,12 +117,16 @@
 
                 <div class="col-6 d-flex border-1 border-dark border">
                   <div class="w-50">الموافق</div>
-                  <div class="w-50">{{ travelDate }}</div>
+                  <div class="w-50">
+                    {{ trip.date }}
+                  </div>
                 </div>
 
                 <div class="col-6 d-flex border-1 border-dark border">
                   <div class="w-50">موعد المغادرة</div>
-                  <div class="w-50">{{ travelTime }}</div>
+                  <div class="w-50">
+                    {{ trip.time }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -116,17 +138,9 @@
         <div class="col-12">
           <img
             title="QR"
-            style="max-width: 200px; margin: 10px"
             [src]="qr"
-            class="img-thumbnail img-responsive"
+            class="img-thumbnail img-responsive qrcode"
           />
-
-          <!-- <div id="qrcode"></div> -->
-          <!-- <qrcode
-            [qrdata]="qrCodeStr"
-            [width]="150"
-            [errorCorrectionLevel]="'M'"
-          ></qrcode> -->
         </div>
       </div>
     </div>

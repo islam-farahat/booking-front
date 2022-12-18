@@ -8,18 +8,16 @@ import { AuthGuardService } from 'src/app/features/auth/services/auth-guard.serv
   styleUrls: ['./nav-bar.component.scss'],
 })
 export class NavBarComponent implements OnInit {
-  login: boolean = false;
-  constructor(
-    private authService: AuthService,
-    private authGuard: AuthGuardService
-  ) {}
-
+  // login: boolean = false;
+  // constructor(
+  //   private authService: AuthService,
+  //   private authGuard: AuthGuardService
+  // ) {}
   ngOnInit(): void {}
-  get isLoggedIn() {
-    return this.authGuard.loggedIn.asObservable(); // {2}
-  }
-
-  logout() {
-    this.authService.logout();
-  }
+  // get isLoggedIn() {
+  //   return this.authGuard.loggedIn.asObservable();
+  // }
+  // logout() {
+  //   this.authService.logout();
+  // }
 }
