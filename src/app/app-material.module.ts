@@ -15,7 +15,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { QRCodeModule } from 'angularx-qrcode';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -39,7 +38,6 @@ const materialModules = [
   MatNativeDateModule,
   MatListModule,
   MatCheckboxModule,
-  QRCodeModule,
   MatTableModule,
   MatPaginatorModule,
   MatSnackBarModule,
@@ -47,7 +45,6 @@ const materialModules = [
 ];
 
 @NgModule({
-  declarations: [],
   imports: [materialModules],
   exports: [materialModules],
 })

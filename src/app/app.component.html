@@ -1,9 +1,8 @@
 <div
-  style="height: 60px"
-  class="d-flex justify-content-between nav navbar-dark shadow-sm fixed-top bg-teal px-3 py-2"
+  class="d-flex justify-content-between nav navbar-dark shadow-sm fixed-top bg-teal px-3 py-2 nav-size"
 >
   <span
-    ><a (click)="drawer.toggle()"
+    ><a *ngIf="isLoggedIn | async" (click)="drawer.toggle()"
       ><mat-icon class="fs-3 mt-2 text-white ms-3">menu</mat-icon></a
     >
     <a class="navbar-brand fs-3 pt-2" routerLink="/home">الكسار</a></span
@@ -25,10 +24,9 @@
   <button type="button" mat-menu-item (click)="logout()">تسجيل خروج</button>
 </mat-menu>
 
-<div style="height: 70px"></div>
-
-<mat-drawer-container autosize>
-  <mat-drawer style="width: 250px" #drawer mode="over">
+<mat-drawer-container autosize class="vh-100">
+  <mat-drawer class="d-size" #drawer mode="over">
+    <div class="nav-size"></div>
     <button type="button" mat-menu-item routerLink="/home/settings">
       الاعدادات
     </button>
@@ -38,9 +36,22 @@
     <button type="button" mat-menu-item routerLink="/auth/register">
       تسجيل مستخدم جديد
     </button>
+    <button type="button" mat-menu-item routerLink="/home/bus-info">
+      بيانات العملاء
+    </button>
+    <button type="button" mat-menu-item routerLink="/home/all-trips">
+      جميع الرحلات
+    </button>
+    <button type="button" mat-menu-item routerLink="/home/bill-document">
+      سند قبض
+    </button>
+    <button type="button" mat-menu-item routerLink="/home/ticket-info">
+      بيانات التذكرة
+    </button>
   </mat-drawer>
 
   <div class="container-fluid">
+    <div class="nav-size"></div>
     <router-outlet></router-outlet>
   </div>
 </mat-drawer-container>

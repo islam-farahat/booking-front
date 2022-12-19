@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TravelRegisterService } from '../../services/travel-register.service';
 
 @Component({
   selector: 'app-bill-document',
@@ -12,10 +13,17 @@ export class BillDocumentComponent implements OnInit {
   count: string = '';
   from: string = '';
   to: string = '';
+  license: string = '';
+  mobile: string = '';
 
-  constructor() {}
+  constructor(private travel: TravelRegisterService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.travel.getTicketDetailsByName('الكسار').subscribe((value) => {
+      this.license = value.license;
+      this.mobile = value.mobile;
+    });
+  }
 
   print() {
     let a = window.open('', '', 'height=800, width=800');

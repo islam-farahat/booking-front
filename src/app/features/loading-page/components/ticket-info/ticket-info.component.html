@@ -1,0 +1,34 @@
+<form [formGroup]="ticketDetails" (submit)="submit()" class="w-25 mx-auto p-3">
+  <div>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>رقم الجوال</mat-label>
+      <input
+        formControlName="mobile"
+        type="text"
+        matInput
+        placeholder="رقم الجوال"
+      />
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>الترخيص</mat-label>
+      <input
+        formControlName="license"
+        type="text"
+        matInput
+        placeholder="الترخيص"
+      />
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>الشروط و الاحكام</mat-label>
+      <textarea title="Terms" formControlName="terms" matInput></textarea>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <button mat-flat-button color="primary" type="submit">تعديل</button>
+  </div>
+</form>

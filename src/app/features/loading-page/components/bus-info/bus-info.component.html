@@ -6,17 +6,17 @@
   >
     <div class="">
       <button
-        style="width: 100px"
         title="Search"
         type="submit"
         mat-flat-button
         color="primary"
+        class="px-3"
       >
         بحث
       </button>
     </div>
     <div class="m-4">
-      <mat-form-field style="width: 300px" appearance="outline">
+      <mat-form-field class="form-field-size" appearance="outline">
         <input
           formControlName="search"
           type="text"
@@ -65,14 +65,16 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
 
-      <mat-paginator
-        [pageSizeOptions]="[5, 10, 20]"
-        showFirstLastButtons
-        aria-label="Select page of periodic elements"
-      >
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
       </mat-paginator>
     </div>
-    <button class="m-1" mat-flat-button color="primary" (click)="print()">
+    <button
+      type="button"
+      class="m-1"
+      mat-flat-button
+      color="primary"
+      (click)="print()"
+    >
       Save To Excel File
     </button>
   </div>

@@ -1,3 +1,5 @@
+import { AllTripsComponent } from './components/all-trips/all-trips.component';
+import { BusInfoComponent } from './components/bus-info/bus-info.component';
 import { BillDocumentComponent } from './pages/bill-document/bill-document.component';
 import { AuthGuardService } from './../auth/services/auth-guard.service';
 import { SettingsComponent } from './components/settings/settings.component';
@@ -5,6 +7,7 @@ import { AddComponent } from './pages/add/add.component';
 import { LoadingPageComponent } from './loading-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TicketInfoComponent } from './components/ticket-info/ticket-info.component';
 
 const routes: Routes = [
   {
@@ -25,6 +28,26 @@ const routes: Routes = [
   {
     path: 'bill-document',
     component: BillDocumentComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'bus-info',
+    component: BusInfoComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'all-trips',
+    component: AllTripsComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'bill-document',
+    component: BillDocumentComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'ticket-info',
+    component: TicketInfoComponent,
     canActivate: [AuthGuardService],
   },
 ];
