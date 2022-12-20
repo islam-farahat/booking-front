@@ -28,10 +28,12 @@ export class CityComponent implements OnInit {
     ) {
       this.travel.addCity({ cityName: this.city.value! }).subscribe((city) => {
         this.cites.push(city!);
-        this.snackBar.open('تمت الاضافة بنجاح', 'اغلاق');
+        this.snackBar.open('تمت الاضافة بنجاح', 'اغلاق', { duration: 2000 });
       });
     } else {
-      this.snackBar.open('اسم المدينة موجود مسبقا', 'اغلاق');
+      this.snackBar.open('اسم المدينة موجود مسبقا', 'اغلاق', {
+        duration: 2000,
+      });
     }
   }
   removeCity(city: ICity, index: number) {

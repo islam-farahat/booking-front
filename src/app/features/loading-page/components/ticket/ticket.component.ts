@@ -22,7 +22,16 @@ export class TicketComponent implements OnInit {
   ticketsId: BehaviorSubject<number[]> = this.busSelect.ticketId;
   tripId: BehaviorSubject<number> = this.busSelect.tripId;
   tickets: ITicket[] = [];
-  trip!: ITrip;
+  trip: ITrip = {
+    busNumber: '',
+    date: '',
+    from: '',
+    price: '',
+    seats: [],
+    seatsCount: 0,
+    time: '',
+    to: '',
+  };
 
   constructor(
     private busSelect: BusSelectService,

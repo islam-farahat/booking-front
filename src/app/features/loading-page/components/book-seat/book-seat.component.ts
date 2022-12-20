@@ -59,14 +59,16 @@ export class BookSeatComponent implements OnInit {
       this.disabled = false;
     }
     if (this.chairCount >= 5 && !this.color[value]) {
-      this.snackBar.open('الحد الاقصي للحجز 5 مقاعد', 'اغلاق');
+      this.snackBar.open('الحد الاقصي للحجز 5 مقاعد', 'اغلاق', {
+        duration: 2000,
+      });
     } else {
       if (!this.color[value]) {
         this.bookedChair.push(value);
         this.color[value] = true;
         this.chairCount++;
       } else {
-        this.snackBar.open('المقعد محجوز', 'اغلاق');
+        this.snackBar.open('المقعد محجوز', 'اغلاق', { duration: 2000 });
       }
     }
   }

@@ -49,7 +49,7 @@ export class RegisterComponent {
         password: this.register.value.password!,
       })
       .subscribe((user) => {
-        this.snackbar.open('تم التسجيل بنجاح', 'اغلاق');
+        this.snackbar.open('تم التسجيل بنجاح', 'اغلاق', { duration: 2000 });
       });
   }
 }

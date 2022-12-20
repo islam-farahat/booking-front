@@ -68,7 +68,7 @@ export class TeravalComponent implements OnInit {
         seats: this.seats,
       })
       .subscribe(() => {
-        this.snackBar.open('تمت الاضافة بنجاح', 'اغلاق');
+        this.snackBar.open('تمت الاضافة بنجاح', 'اغلاق', { duration: 2000 });
       });
   }
   removeTrip() {}

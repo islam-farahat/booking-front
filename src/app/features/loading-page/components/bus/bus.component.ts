@@ -41,10 +41,10 @@ export class BusComponent implements OnInit {
     ) {
       this.travel.addBus({ busNum: this.bus.value! }).subscribe((bus) => {
         this.buses.push(bus!);
-        this.snackBar.open('تمت الاضافة بنجاح', 'اغلاق');
+        this.snackBar.open('تمت الاضافة بنجاح', 'اغلاق', { duration: 2000 });
       });
     } else {
-      this.snackBar.open('الاتوبيس موجود مسبقا', 'اغلاق');
+      this.snackBar.open('الاتوبيس موجود مسبقا', 'اغلاق', { duration: 2000 });
     }
   }
   removeBus(bus: Bus, index: number) {
