@@ -1,21 +1,10 @@
-<div
-  class="d-flex justify-content-between nav navbar-dark shadow-sm fixed-top bg-teal px-3 py-2 nav-size"
->
-  <span
-    ><a *ngIf="isLoggedIn | async" (click)="drawer.toggle()"
-      ><mat-icon class="fs-3 mt-2 text-white ms-3">menu</mat-icon></a
-    >
-    <a class="navbar-brand fs-3 pt-2" routerLink="/home">mustafaaaaa</a></span
-  >
+<div class="d-flex justify-content-between nav navbar-dark shadow-sm fixed-top bg-teal px-3 py-2 nav-size">
+  <span><a *ngIf="isLoggedIn | async" (click)="drawer.toggle()"><mat-icon
+        class="fs-3 mt-2 text-white ms-3">menu</mat-icon></a>
+    <a class="navbar-brand fs-3 pt-2" routerLink="/home">الكسار</a></span>
   <div>
-    <button
-      *ngIf="isLoggedIn | async"
-      class="bg-light"
-      title="menu"
-      type="button"
-      mat-icon-button
-      [matMenuTriggerFor]="belowMenu"
-    >
+    <button *ngIf="isLoggedIn | async" class="bg-light" title="menu" type="button" mat-icon-button
+      [matMenuTriggerFor]="belowMenu">
       <mat-icon>person</mat-icon>
     </button>
   </div>
@@ -28,7 +17,11 @@
   <mat-drawer class="d-size" #drawer mode="over">
     <div class="nav-size"></div>
     <button type="button" mat-menu-item routerLink="/home/settings">
-      الاعدادات <i class="fa-solid fa-gear"></i>
+      <span>
+        <h3>الاعدادات</h3> <span class="material-symbols-outlined">
+          settings
+        </span>
+      </span>
     </button>
     <button type="button" mat-menu-item routerLink="/home/add">
       اضافة رحلات
