@@ -1,0 +1,113 @@
+<div class="container p-5">
+    <form (ngSubmit)="addBillDocument()" [formGroup]="billDocument">
+
+        <div class="row">
+            <div class="col-2">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>اختار التاريخ</mat-label>
+                    <input formControlName="date" placeholder="التاريخ" matInput [matDatepicker]="picker" />
+
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>اسم المستلم</mat-label>
+                    <input formControlName="name" type="text" matInput placeholder="اسم المستلم" />
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>المبلغ</mat-label>
+                    <input formControlName="price" type="number" matInput placeholder="المبلغ" />
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>عدد الاتوبيسات</mat-label>
+                    <input formControlName="count" type="number" matInput placeholder="عدد الاتوبيسات" />
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>من</mat-label>
+                    <input formControlName="from" type="text" matInput placeholder="من" />
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>الي</mat-label>
+                    <input formControlName="to" type="text" matInput placeholder="الي" />
+                </mat-form-field>
+            </div>
+            <mat-divider class="my-2"></mat-divider>
+            <div id="contentToPrint">
+                <div class="row border-3 mx-auto border-dark border pdf-size">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-4 text-end">
+                                <h1>الكسار</h1>
+                                <h3>لخدمات العمرة و الزيارة</h3>
+                            </div>
+                            <div class="col-4 text-center">
+                                <div>سند قبض</div>
+                            </div>
+                            <div class="col-4 text-start">
+                                <div>
+                                    <img title="logo" width="100px" src="/assets/images/logo.jpg" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 d-flex">
+                                    <div class="w-50">ترخيص</div>
+                                    <div class="w-50">{{ ticketDetails.license }}</div>
+                                </div>
+                                <div class="col-6 d-flex">
+                                    <div class="w-50">الهاتف</div>
+                                    <div class="w-50">{{ ticketDetails.mobile }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-12 text-center bg-light">
+                                        بسم الله الرحمن الرحيم
+                                    </div>
+
+                                    <div class="col-6 my-2">التاريخ :</div>
+                                    <div class="col-6 my-3">{{ billDocument.value.date | date }}</div>
+                                    <div class="col-6 my-2">استلمت من المكرم :</div>
+                                    <div class="col-6 my-2">{{ billDocument.value.name }}</div>
+                                    <div class="col-6 my-2">مبلغ و قدرة :</div>
+                                    <div class="col-6 my-2">{{ billDocument.value.price }}</div>
+                                    <div class="col-12 my-2">
+                                        و ذلك اجرة تاجير عدد {{ billDocument.value.count }} اتوبيس لنقل ركاب من
+                                        {{ billDocument.value.from }} الي {{ billDocument.value.to }} و العودة
+                                    </div>
+                                    <div class="col-12 my-2">
+                                        من {{ billDocument.value.from }} الي {{ billDocument.value.to }} الي {{
+                                        billDocument.value.from }}
+                                    </div>
+                                    <div class="col-6 text-center my-5">الختم</div>
+                                    <div class="col-6 text-center my-5">المستلم</div>
+                                    <div class="col-12 py-5 my-5"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 text-right">
+                <button type="submit" mat-flat-button color="primary" class="mb-3">
+                    طباعة
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

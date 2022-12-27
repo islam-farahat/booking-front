@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <form [formGroup]="billDocument" (ngSubmit)="filterBillDocument()">
+        <div class="row justify-content-center my-2">
+            <div class="col-2">
+                <button class="w-100 mt-2" type="submit" mat-flat-button color="primary">بحث</button>
+            </div>
+            <div class="col-3">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>من</mat-label>
+                    <input formControlName="from" placeholder="من" matInput [matDatepicker]="fromPicker" />
+
+                    <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #fromPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>الي</mat-label>
+                    <input formControlName="to" placeholder="الي" matInput [matDatepicker]="toPicker" />
+
+                    <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #toPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+
+    <div *ngFor="let item of billDocumentDataSource">
+        <mat-card class="mb-1">
+            <div class="row">
+                <div class="col-2">التاريخ : <span class="p-1">{{item.date|date}}</span></div>
+                <div class="col-3">اسم المستلم :<span class="p-1">{{item.fullName}}</span></div>
+                <div class="col-1">المبلغ :<span class="p-1">{{item.price}}</span></div>
+                <div class="col-2">عدد التوبيسات :<span class="p-1">{{item.buscount}}</span></div>
+                <div class="col-2">من :<span class="p-1">{{item.from}}</span></div>
+                <div class="col-2">الي :<span class="p-1">{{item.to}}</span></div>
+            </div>
+        </mat-card>
+    </div>
+
+</div>

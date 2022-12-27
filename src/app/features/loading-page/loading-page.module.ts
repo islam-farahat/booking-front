@@ -18,6 +18,8 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { BusInfoComponent } from './components/bus-info/bus-info.component';
 import { BillDocumentComponent } from './pages/bill-document/bill-document.component';
 import { AllTripsComponent } from './components/all-trips/all-trips.component';
+import { BillDocumentViewComponent } from './components/bill-document-view/bill-document-view.component';
+import { BillDocumentAddComponent } from './components/bill-document-add/bill-document-add.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { AllTripsComponent } from './components/all-trips/all-trips.component';
     BusInfoComponent,
     BillDocumentComponent,
     AllTripsComponent,
+    BillDocumentViewComponent,
+    BillDocumentAddComponent,
   ],
   imports: [CommonModule, LoadingPageRoutingModule, AppMaterialModule],
 })

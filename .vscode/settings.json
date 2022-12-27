@@ -2,12 +2,7 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.guides.bracketPairs": "active",
-  "cSpell.words": [
-    "dataurlnewwindow",
-    "qrcode",
-    "qrdata",
-    "تذكرة"
-  ],
+  "cSpell.words": ["buscount", "dataurlnewwindow", "qrcode", "qrdata", "تذكرة"],
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
   }
