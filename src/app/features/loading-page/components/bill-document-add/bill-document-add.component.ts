@@ -58,7 +58,7 @@ export class BillDocumentAddComponent implements OnInit {
         },
         complete: () => {
           this.snackbar.open('تم الحفظ بنجاح', 'اغلاق', { duration: 1500 });
-          // this.print();
+          this.print();
         },
       });
   }
