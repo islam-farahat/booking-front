@@ -30,7 +30,7 @@
                 <div class="w-50">
                   <i *ngIf="(ticketsId | async)![0]">{{
                     (ticketsId | async)![0]
-                  }}</i>
+                    }}</i>
                 </div>
               </div>
               <div class="col-6 d-flex">
@@ -136,22 +136,13 @@
           <h3 *ngFor="let term of terms">{{ term }}</h3>
         </div>
         <div class="col-12">
-          <img
-            title="QR"
-            [src]="qr"
-            class="img-thumbnail img-responsive qrcode"
-          />
+          <img title="QR" [src]="qr" class="img-thumbnail img-responsive qrcode" />
         </div>
       </div>
     </div>
 
     <div class="col-md-4 text-right">
-      <button
-        type="button"
-        mat-flat-button
-        color="primary"
-        (click)="Convert_HTML_To_PDF()"
-      >
+      <button type="button" mat-flat-button color="primary" (click)="reserve()">
         طباعة
       </button>
     </div>

@@ -5,9 +5,10 @@ import { ITrip } from './../models/trip.model';
 import { ICity } from './../models/city.model';
 import { environment } from './../../../../environments/environment';
 import { Bus } from './../models/bus.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BillDocumentModel } from '../models/bill-document.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -33,6 +34,23 @@ export class TravelRegisterService {
   }
   getCity(): Observable<ICity[]> {
     return this.http.get<ICity[]>(`${environment.API_URL}/city`);
+  }
+  findTripByDate(startDate: string, endDate: string): Observable<ITrip[]> {
+    console.log('hello hello');
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('startDate', startDate);
+    queryParams = queryParams.append('endDate', endDate);
+
+    return this.http.get<ITrip[]>(environment.API_URL + '/trip/filter', {
+      params: queryParams,
+    });
+  }
+  findTripByTodyDate(date: string): Observable<ITrip[]> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('date', date);
+    return this.http.get<ITrip[]>(environment.API_URL + '/trip/tody-filter', {
+      params: queryParams,
+    });
   }
   getTrips(): Observable<ITrip[]> {
     return this.http.get<ITrip[]>(`${environment.API_URL}/trip`);

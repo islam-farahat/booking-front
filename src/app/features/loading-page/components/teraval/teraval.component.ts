@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { TravelRegisterService } from '../../services/travel-register.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-teraval',
@@ -11,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./teraval.component.scss'],
 })
 export class TeravalComponent implements OnInit {
+  minDate: Date = new Date();
   trip = this.fb.group({
     from: ['', [Validators.required]],
     to: ['', [Validators.required]],
@@ -54,13 +56,11 @@ export class TeravalComponent implements OnInit {
     return 'Not a valid number';
   }
   addTrip() {
-    let date = this.trip.value.date?.toString()?.split('00:00:00');
-
     this.travel
       .addTrip({
         from: this.trip.value.from!,
         to: this.trip.value.to!,
-        date: date![0],
+        date: moment(this.trip.value.date!).format('YYYY-MM-DD'),
         time: this.trip.value.time!,
         price: this.trip.value.price!,
         busNumber: this.trip.value.busNumber!,

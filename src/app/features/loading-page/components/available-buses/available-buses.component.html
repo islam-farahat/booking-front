@@ -25,15 +25,9 @@
         </div>
 
         <div class="col-12">
-          <button
-            [disabled]="
+          <button [disabled]="
               trip.controls['from'].invalid || trip.controls['to'].invalid
-            "
-            type="button"
-            mat-flat-button
-            color="primary"
-            (click)="select()"
-          >
+            " type="button" mat-flat-button color="primary" (click)="select()">
             عرض
           </button>
         </div>
@@ -50,13 +44,7 @@
         <mat-card>
           <div class="row p-2">
             <div class="col-3">
-              <button
-                (click)="confirmBus(trip)"
-                mat-raised-button
-                type="button"
-                matStepperNext
-                color="primary"
-              >
+              <button (click)="confirmBus(trip)" mat-raised-button type="button" matStepperNext color="primary">
                 حجز مقعد
               </button>
             </div>

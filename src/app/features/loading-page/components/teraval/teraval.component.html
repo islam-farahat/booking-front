@@ -11,7 +11,7 @@
           </mat-select>
           <mat-error *ngIf="trip.controls['from'].invalid">{{
             getErrorMessage()
-          }}</mat-error>
+            }}</mat-error>
         </mat-form-field>
       </div>
 
@@ -25,27 +25,20 @@
           </mat-select>
           <mat-error *ngIf="trip.controls['to'].invalid">{{
             getErrorMessage()
-          }}</mat-error>
+            }}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-6">
         <mat-form-field appearance="fill" class="w-75">
           <mat-label>تاريخ السفر</mat-label>
-          <input
-            formControlName="date"
-            title="Travel Date"
-            matInput
-            [matDatepicker]="picker"
-          />
+
+          <input [min]="minDate" formControlName="date" title="Travel Date" matInput [matDatepicker]="picker" />
           <mat-hint>يوم / شهر / سنة</mat-hint>
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="picker"
-          ></mat-datepicker-toggle>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
           <mat-error *ngIf="trip.controls['date'].invalid">{{
             getErrorMessage()
-          }}</mat-error>
+            }}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-6">
@@ -54,7 +47,7 @@
           <input formControlName="time" title="Time" matInput type="time" />
           <mat-error *ngIf="trip.controls['time'].invalid">{{
             getErrorMessage()
-          }}</mat-error>
+            }}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-6">
@@ -63,7 +56,7 @@
           <input formControlName="price" title="Price" matInput />
           <mat-error *ngIf="trip.controls['price'].invalid">{{
             getPriceErrorMessage()
-          }}</mat-error>
+            }}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-6">
@@ -76,32 +69,24 @@
           </mat-select>
           <mat-error *ngIf="trip.controls['busNumber'].invalid">{{
             getErrorMessage()
-          }}</mat-error>
+            }}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-6">
         <mat-form-field appearance="fill" class="w-75">
           <mat-label>عدد المقاعد</mat-label>
           <mat-select formControlName="seatsCount" required>
-            <mat-option
-              *ngFor="let seatCount of seatsCount"
-              [value]="seatCount"
-            >
+            <mat-option *ngFor="let seatCount of seatsCount" [value]="seatCount">
               {{ seatCount }}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="trip.controls['seatsCount'].invalid">{{
             getErrorMessage()
-          }}</mat-error>
+            }}</mat-error>
         </mat-form-field>
       </div>
       <div class="col-12">
-        <button
-          [disabled]="trip.invalid"
-          type="submit"
-          mat-flat-button
-          color="primary"
-        >
+        <button [disabled]="trip.invalid" type="submit" mat-flat-button color="primary">
           تسجيل رحلة
         </button>
       </div>
