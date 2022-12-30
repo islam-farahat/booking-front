@@ -1,3 +1,4 @@
+import { InvoicesViewComponent } from './pages/invoices-view/invoices-view.component';
 import { AllTripsComponent } from './components/all-trips/all-trips.component';
 import { BusInfoComponent } from './components/bus-info/bus-info.component';
 import { BillDocumentComponent } from './pages/bill-document/bill-document.component';
@@ -48,6 +49,11 @@ const routes: Routes = [
   {
     path: 'ticket-info',
     component: TicketInfoComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'invoices-view',
+    component: InvoicesViewComponent,
     canActivate: [AuthGuardService],
   },
 ];

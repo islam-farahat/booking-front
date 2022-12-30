@@ -105,4 +105,9 @@ export class TravelRegisterService {
   getInvoices(): Observable<Invoice[]> {
     return this.http.get<Invoice[]>(`${environment.API_URL}/invoice`);
   }
+  getInvoiceById(invoiceId: number): Observable<Invoice> {
+    return this.http.get<Invoice>(
+      `${environment.API_URL}/invoice/${invoiceId}`
+    );
+  }
 }

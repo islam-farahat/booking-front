@@ -1,30 +1,35 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ITrip } from './../../models/trip.model';
-import { BehaviorSubject } from 'rxjs';
 import { ITicket } from './../../models/ticket.model';
-import { TravelRegisterService } from './../../services/travel-register.service';
-import { BusSelectService } from './../../services/bus-select.service';
-import { Component, OnInit } from '@angular/core';
-import autoTable from 'jspdf-autotable';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 import * as moment from 'moment';
+import { TravelRegisterService } from '../../services/travel-register.service';
+
+import { ITrip } from '../../models/trip.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-ticket',
-  templateUrl: './ticket.component.html',
-  styleUrls: ['./ticket.component.scss'],
+  selector: 'app-invoices-view',
+  templateUrl: './invoices-view.component.html',
+  styleUrls: ['./invoices-view.component.scss'],
 })
-export class TicketComponent implements OnInit {
-  qr =
-    'https://chart.googleapis.com/chart?cht=qr&chl=Hello+World&chs=160x160&chld=L|0';
-  currentDate!: string;
-  terms: string[] = [];
-  license!: string;
-  mobile!: string;
+export class InvoicesViewComponent implements OnInit {
+  displayedColumns: string[] = [
+    'id',
+    'fullName',
+    'nationality',
+    'mobile',
+    'idNumber',
+    'chairNumber',
+  ];
 
-  chairCount: BehaviorSubject<number> = this.busSelect.chairCount;
-  ticketsId: BehaviorSubject<number[]> = this.busSelect.ticketId;
-  tripId: BehaviorSubject<number> = this.busSelect.tripId;
+  currentDate: string = '';
+  terms: string[] = [];
+  license: string = '';
+  mobile: string = '';
+
+  ticketsView: ITicket[] = [];
   tickets: ITicket[] = [];
   pdfBody: any[] = [{}];
   trip: ITrip = {
@@ -37,41 +42,57 @@ export class TicketComponent implements OnInit {
     time: '',
     to: '',
   };
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  dataSource = new MatTableDataSource<ITicket>(this.ticketsView);
 
-  constructor(
-    private busSelect: BusSelectService,
-    private travel: TravelRegisterService,
-    private snackBar: MatSnackBar
-  ) {}
+  constructor(private travel: TravelRegisterService) {
+    this.travel.getInvoices().subscribe({
+      next: (obj) => {
+        obj.forEach((value) => {
+          this.travel.getTicket(value.ticketId[0]).subscribe((ticket) => {
+            ticket.id = value.id;
+            this.ticketsView.push(Object.assign({}, ticket));
+          });
+        });
+      },
+      error: () => {},
+      complete: () => {
+        this.awaitTimeout(200).then(() => {
+          this.dataSource = new MatTableDataSource<ITicket>(this.ticketsView);
+          this.dataSource.paginator = this.paginator;
+        });
+      },
+    });
+  }
   awaitTimeout = (delay: number) =>
     new Promise((resolve) => setTimeout(resolve, delay));
   number(value: string) {
     return Number(value);
   }
-
-  ngOnInit() {
-    moment.locale();
-    this.currentDate = moment().format('LL');
-    this.awaitTimeout(1000).then(() => {
-      this.travel.getTrip(this.tripId.value).subscribe((trip: ITrip) => {
-        this.trip = trip;
-      });
-    });
-
-    this.awaitTimeout(1000).then(() => {
-      this.busSelect.ticketId.subscribe((obj) => {
-        obj.forEach((id) => {
-          this.travel.getTicket(id).subscribe((value) => {
+  print(invoiceId: number) {
+    this.travel.getInvoiceById(invoiceId).subscribe({
+      next: (invoice) => {
+        this.travel.getTrip(invoice.tripId).subscribe((trip: ITrip) => {
+          this.trip = trip;
+        });
+        invoice.ticketId.forEach((ticketId) => {
+          this.travel.getTicket(ticketId).subscribe((value) => {
             this.tickets.push(value);
           });
         });
-      });
+      },
+      error: (error) => {},
+      complete: () => {
+        this.awaitTimeout(200).then(() => {
+          this.pdf();
+        });
+      },
     });
+  }
+  ngOnInit(): void {
+    moment.locale();
+    this.currentDate = moment().format('LL');
 
-    this.qr =
-      'https://chart.googleapis.com/chart?cht=qr&chl=' +
-      'الكسار' +
-      '&chs=160x160&chld=L|0';
     this.travel.getTicketDetailsByName('الكسار').subscribe((value) => {
       this.license = value.license;
       this.mobile = value.mobile;
@@ -79,21 +100,9 @@ export class TicketComponent implements OnInit {
     });
   }
 
-  reserve() {
-    this.travel
-      .addInvoice({ ticketId: this.ticketsId.value, tripId: this.tripId.value })
-      .subscribe({
-        complete: () => {
-          this.pdf();
-        },
-        error: (error) => {
-          this.snackBar.open('فشل حجز الرحلة', '', { duration: 1500 });
-        },
-      });
-  }
-
   pdf() {
     this.pdfBody = this.tickets;
+
     var img = new Image();
     var qr =
       'https://chart.googleapis.com/chart?cht=qr&chl=' +
@@ -158,7 +167,7 @@ export class TicketComponent implements OnInit {
       body: [
         [
           this.trip.id!.toString(),
-          (Number(this.trip.price) * this.chairCount.value).toString(),
+          (Number(this.trip.price) * this.tickets.length).toString(),
           this.trip.to,
           this.trip.from,
         ],
@@ -186,5 +195,11 @@ export class TicketComponent implements OnInit {
     pdf.autoPrint();
     const blob = pdf.output('bloburl');
     window.open(blob);
+    this.pdfBody.splice(0, this.pdfBody.length);
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

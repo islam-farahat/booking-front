@@ -32,8 +32,6 @@ export class AvailableBusesComponent implements OnInit {
     });
   }
   select() {
-    console.log(moment(new Date()).format('YYYY-MM-DD'));
-
     this.travel
       .findTripByTodyDate(moment(new Date()).format('YYYY-MM-DD'))
       .pipe(

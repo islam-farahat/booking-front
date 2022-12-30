@@ -15,11 +15,7 @@ class Room {
 })
 export class BookSeatComponent implements OnInit {
   disabled: boolean = true;
-  rooms: Room[] = [];
-  room = this.fb.group({
-    roomType: [''],
-    roomsCount: [''],
-  });
+
   id: number = 0;
   color: boolean[] = [];
   chairCount: number = 0;
@@ -45,12 +41,6 @@ export class BookSeatComponent implements OnInit {
         this.color[48] = true;
         this.color[49] = true;
       }
-    });
-  }
-  bookRoom() {
-    this.rooms.push({
-      roomsCount: this.room.value.roomsCount!,
-      roomType: this.room.value.roomType!,
     });
   }
 

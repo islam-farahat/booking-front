@@ -20,6 +20,7 @@ import { BillDocumentComponent } from './pages/bill-document/bill-document.compo
 import { AllTripsComponent } from './components/all-trips/all-trips.component';
 import { BillDocumentViewComponent } from './components/bill-document-view/bill-document-view.component';
 import { BillDocumentAddComponent } from './components/bill-document-add/bill-document-add.component';
+import { InvoicesViewComponent } from './pages/invoices-view/invoices-view.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { BillDocumentAddComponent } from './components/bill-document-add/bill-do
     AllTripsComponent,
     BillDocumentViewComponent,
     BillDocumentAddComponent,
+    InvoicesViewComponent,
   ],
   imports: [CommonModule, LoadingPageRoutingModule, AppMaterialModule],
 })

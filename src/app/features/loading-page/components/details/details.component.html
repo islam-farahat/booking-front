@@ -1,71 +1,44 @@
 <form [formGroup]="details" (ngSubmit)="submit()">
   <div class="row">
     <div class="col-12">
-      <div
-        formArrayName="person"
-        *ngFor="let item of person.controls; let i = index"
-      >
+      <div formArrayName="person" *ngFor="let item of person.controls; let i = index">
         <div [formGroupName]="i" class="row">
           <div class="col-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>الاسم بالكامل</mat-label>
-              <input
-                formControlName="fullName"
-                matInput
-                placeholder="الاسم بالكامل"
-              />
+              <input formControlName="fullName" matInput placeholder="الاسم بالكامل" />
             </mat-form-field>
           </div>
           <div class="col-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>رقم الهاتف</mat-label>
-              <input
-                formControlName="mobile"
-                matInput
-                placeholder="رقم الهاتف"
-                type="number"
-                min="0"
-              />
+              <input formControlName="mobile" matInput placeholder="رقم الهاتف" type="number" min="0" />
             </mat-form-field>
           </div>
           <div class="col-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>رقم الاقامة</mat-label>
-              <input
-                type="number"
-                min="0"
-                formControlName="idNumber"
-                matInput
-                placeholder="رقم الاقامة"
-              />
+              <input type="number" min="0" formControlName="idNumber" matInput placeholder="رقم الاقامة" />
             </mat-form-field>
           </div>
           <div class="col-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>الجنسية</mat-label>
-              <input
-                type="text"
-                formControlName="nationality"
-                matInput
-                placeholder="الجنسية"
-              />
+              <input type="text" formControlName="nationality" matInput placeholder="الجنسية" />
             </mat-form-field>
           </div>
           <mat-divider class="pb-3"></mat-divider>
         </div>
       </div>
     </div>
-    <div class="col-1">
-      <button
-        [disabled]="details.controls['person'].invalid"
-        matStepperNext
-        type="submit"
-        mat-flat-button
-        color="primary"
-        class="w-100"
-      >
-        حفظ
+    <div class="col-auto">
+      <button [disabled]="details.controls['person'].invalid" type="submit" mat-flat-button color="primary"
+        class="w-100">
+        حفظ و طباعة
       </button>
+    </div>
+    <div class="col-1">
+
     </div>
   </div>
 </form>

@@ -2,15 +2,10 @@
   <div class="row justify-content-center">
     <mat-card class="col-9 mb-3">
       <mat-stepper linear #stepper>
-        <mat-step
-          [stepControl]="availableBusesComponent.trip"
-          label="الاتوبيسات المتاحة"
-        >
+        <mat-step [stepControl]="availableBusesComponent.trip" label="الاتوبيسات المتاحة">
           <div class="container-fluid">
             <div class="p-3 overflow-auto form-size">
-              <app-available-buses
-                #availableBusesComponent
-              ></app-available-buses>
+              <app-available-buses #availableBusesComponent></app-available-buses>
             </div>
           </div>
         </mat-step>
@@ -22,12 +17,7 @@
                 <app-book-seat></app-book-seat>
               </div>
               <div class="col-12 pt-2">
-                <button
-                  type="button"
-                  mat-button
-                  matStepperPrevious
-                  color="accent"
-                >
+                <button type="button" mat-button matStepperPrevious color="accent">
                   رجوع
                 </button>
               </div>
@@ -42,19 +32,14 @@
                 <app-details></app-details>
               </div>
               <div class="col-12 pt-2">
-                <button
-                  type="button"
-                  mat-button
-                  matStepperPrevious
-                  color="accent"
-                >
+                <button type="button" mat-button matStepperPrevious color="accent">
                   رجوع
                 </button>
               </div>
             </div>
           </ng-template>
         </mat-step>
-
+        <!-- 
         <mat-step label="التذكرة">
           <ng-template matStepContent>
             <div class="p-3 row">
@@ -73,7 +58,7 @@
               </div>
             </div>
           </ng-template>
-        </mat-step>
+        </mat-step> -->
       </mat-stepper>
     </mat-card>
   </div>

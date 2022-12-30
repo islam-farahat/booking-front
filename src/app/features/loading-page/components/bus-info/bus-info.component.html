@@ -1,28 +1,16 @@
 <div class="container-fluid">
-  <form
-    [formGroup]="searchBox"
-    (ngSubmit)="search()"
-    class="d-flex justify-content-center align-items-center"
-  >
-    <div class="">
-      <button
-        title="Search"
-        type="submit"
-        mat-flat-button
-        color="primary"
-        class="px-3"
-      >
-        بحث
-      </button>
-    </div>
-    <div class="m-4">
+  <form [formGroup]="searchBox" (ngSubmit)="search()" class="d-flex justify-content-center align-items-center">
+
+
+
+    <div class="m-4 d-flex">
+      <div class="ms-2 pt-1">
+        <button title="Search" type="submit" mat-flat-button color="primary" class="px-5 mt-2">
+          بحث
+        </button>
+      </div>
       <mat-form-field class="form-field-size" appearance="outline">
-        <input
-          formControlName="search"
-          type="text"
-          matInput
-          placeholder="رقم الرحلة"
-        />
+        <input formControlName="search" type="text" matInput placeholder="رقم الرحلة" />
       </mat-form-field>
     </div>
   </form>
@@ -68,13 +56,7 @@
       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
       </mat-paginator>
     </div>
-    <button
-      type="button"
-      class="m-1"
-      mat-flat-button
-      color="primary"
-      (click)="print()"
-    >
+    <button type="button" class="m-1" mat-flat-button color="primary" (click)="print()">
       Save To Excel File
     </button>
   </div>
