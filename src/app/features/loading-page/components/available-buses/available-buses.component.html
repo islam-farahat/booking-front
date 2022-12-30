@@ -84,11 +84,16 @@
                 <div class="col-4">
                   <div class="row">
                     <div class="col-12 d-flex">
-                      <span class="">التاريخ</span>
+                      <span class="w-50">التاريخ</span>
                       <span class="px-2">:</span>
-                      <span>{{ trip.date }}</span>
+                      <span>{{ trip.date | date}}</span>
                     </div>
                     <mat-divider></mat-divider>
+                    <div class="col-12 d-flex">
+                      <span class="w-50">رقم الرحلة</span>
+                      <span class="px-2">:</span>
+                      <span>{{ trip.id}}</span>
+                    </div>
                   </div>
                 </div>
               </div>
