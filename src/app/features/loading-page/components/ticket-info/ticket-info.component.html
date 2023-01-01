@@ -1,4 +1,4 @@
-<form [formGroup]="ticketDetails" (submit)="submit()" class="w-25 mx-auto p-3">
+<form [formGroup]="ticketDetails" (submit)="submit()" class="w-90 mx-auto p-3">
   <div>
     <mat-form-field class="w-100" appearance="outline">
       <mat-label>رقم الجوال</mat-label>
@@ -20,7 +20,7 @@
 
   <div>
     <mat-form-field class="w-100" appearance="outline">
-      <mat-label>الشرواط و الاحكام</mat-label>
+      <mat-label>الشروط و الاحكام</mat-label>
       <mat-chip-list #chipList>
         <mat-chip *ngFor="let term of terms" [selectable]="selectable" [removable]="removable" (removed)="remove(term)">
           {{ term }}
