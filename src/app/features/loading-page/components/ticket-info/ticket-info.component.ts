@@ -28,18 +28,18 @@ export class TicketInfoComponent implements OnInit {
   ngOnInit() {
     this.travel.getTicketDetailsByName('الكسار').subscribe((value) => {
       if (value) {
-        this.terms = value.terms;
         this.ticketDetails.setValue({
           license: value.license,
           mobile: value.mobile,
           vatNumber: value.vatSerial,
         });
+        this.terms = value.terms;
       } else {
         this.travel
           .addTicketDetails({
             branchName: 'الكسار',
             license: '000',
-            mobile: '0000',
+            mobile: '000',
             vatSerial: '000',
             terms: ['000'],
           })
