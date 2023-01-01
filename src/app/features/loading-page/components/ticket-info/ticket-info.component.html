@@ -20,7 +20,7 @@
 
   <div>
     <mat-form-field class="w-100" appearance="outline">
-      <mat-label>الشرواط و الاحكام</mat-label>
+      <mat-label>الشروط و الاحكام</mat-label>
       <mat-chip-list #chipList>
         <mat-chip *ngFor="let term of terms" [selectable]="selectable" [removable]="removable" (removed)="remove(term)">
           {{ term }}
