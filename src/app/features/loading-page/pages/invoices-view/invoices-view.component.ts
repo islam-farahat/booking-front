@@ -96,7 +96,7 @@ export class InvoicesViewComponent implements OnInit {
     this.travel.getTicketDetailsByName('الكسار').subscribe((value) => {
       this.license = value.license;
       this.mobile = value.mobile;
-      this.terms = value.terms.split('-');
+      this.terms = value.terms;
     });
   }
 
