@@ -38,10 +38,10 @@ export class TicketInfoComponent implements OnInit {
         this.travel
           .addTicketDetails({
             branchName: 'الكسار',
-            license: this.ticketDetails.value.license!,
-            mobile: this.ticketDetails.value.mobile!,
-            vatSerial: this.ticketDetails.value.vatNumber!,
-            terms: this.terms,
+            license: '000',
+            mobile: '0000',
+            vatSerial: '000',
+            terms: ['000'],
           })
           .subscribe((value) => {
             this.terms = value.terms;
