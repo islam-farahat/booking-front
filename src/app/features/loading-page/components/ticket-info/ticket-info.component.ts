@@ -44,12 +44,12 @@ export class TicketInfoComponent implements OnInit {
             terms: ['000'],
           })
           .subscribe((value) => {
-            this.terms = value.terms;
             this.ticketDetails.setValue({
               license: value.license,
               mobile: value.mobile,
               vatNumber: value.vatSerial,
             });
+            this.terms = value.terms;
           });
       }
     });
@@ -89,6 +89,7 @@ export class TicketInfoComponent implements OnInit {
           mobile: value.mobile,
           vatNumber: value.vatSerial,
         });
+        this.terms = value.terms;
       });
   }
 }
