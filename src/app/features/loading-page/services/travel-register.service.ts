@@ -1,3 +1,4 @@
+import { Qrcode } from './../models/qrcode';
 import { Invoice } from './../models/invoice.model';
 import { ITicketDetails } from './../models/ticket_details.model';
 import { ITicket } from './../models/ticket.model';
@@ -108,6 +109,12 @@ export class TravelRegisterService {
   getInvoiceById(invoiceId: number): Observable<Invoice> {
     return this.http.get<Invoice>(
       `${environment.API_URL}/invoice/${invoiceId}`
+    );
+  }
+  generateQrCode(dto: Qrcode): Observable<Qrcode> {
+    return this.http.post<Qrcode>(
+      `${environment.API_URL}/ticket-details/qr-code`,
+      dto
     );
   }
 }

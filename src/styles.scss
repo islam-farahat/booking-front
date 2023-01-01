@@ -1,8 +1,8 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
+
 @use "@angular/material" as mat;
 // Plus imports for other components in your app.
-
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
@@ -28,11 +28,11 @@ $booking_bus-theme: mat.define-light-theme(
     ),
   )
 );
-
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($booking_bus-theme);
+@import "https://fonts.googleapis.com/css2?family=Amiri&family=Cairo&display=swap";
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -42,7 +42,8 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Amiri", serif;
+  font-family: "Cairo", sans-serif;
 }
 .bg-teal {
   background-color: teal;
@@ -51,5 +52,8 @@ body {
   direction: rtl;
 }
 a {
+  cursor: pointer;
+}
+.hand {
   cursor: pointer;
 }

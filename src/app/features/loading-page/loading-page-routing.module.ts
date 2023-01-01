@@ -1,3 +1,4 @@
+import { HomeComponent } from './pages/home/home.component';
 import { InvoicesViewComponent } from './pages/invoices-view/invoices-view.component';
 import { AllTripsComponent } from './components/all-trips/all-trips.component';
 import { BusInfoComponent } from './components/bus-info/bus-info.component';
@@ -14,6 +15,11 @@ const routes: Routes = [
   {
     path: '',
     component: LoadingPageComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'reserve',
+    component: HomeComponent,
     canActivate: [AuthGuardService],
   },
   {

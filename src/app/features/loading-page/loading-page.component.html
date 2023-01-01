@@ -1,65 +1,22 @@
-<div class="container-fluid">
-  <div class="row justify-content-center">
-    <mat-card class="col-9 mb-3">
-      <mat-stepper linear #stepper>
-        <mat-step [stepControl]="availableBusesComponent.trip" label="الاتوبيسات المتاحة">
-          <div class="container-fluid">
-            <div class="p-3 overflow-auto form-size">
-              <app-available-buses #availableBusesComponent></app-available-buses>
-            </div>
-          </div>
-        </mat-step>
+<mat-grid-list cols="9" class="mt-5" gutterSize="20px" rowHeight="150px">
+  <mat-grid-tile colspan="3" class="bg-info rounded-3 shadow-sm fs-2 text-white hand" routerLink="/reserve">
 
-        <mat-step label="حجز مقعد">
-          <ng-template matStepContent>
-            <div class="p-3 row">
-              <div class="col-12">
-                <app-book-seat></app-book-seat>
-              </div>
-              <div class="col-12 pt-2">
-                <button type="button" mat-button matStepperPrevious color="accent">
-                  رجوع
-                </button>
-              </div>
-            </div>
-          </ng-template>
-        </mat-step>
 
-        <mat-step label="التفاصيل">
-          <ng-template matStepContent>
-            <div class="p-3 row">
-              <div class="col-12">
-                <app-details></app-details>
-              </div>
-              <div class="col-12 pt-2">
-                <button type="button" mat-button matStepperPrevious color="accent">
-                  رجوع
-                </button>
-              </div>
-            </div>
-          </ng-template>
-        </mat-step>
-        <!-- 
-        <mat-step label="التذكرة">
-          <ng-template matStepContent>
-            <div class="p-3 row">
-              <div class="col-12">
-                <app-ticket></app-ticket>
-              </div>
-              <div class="col-12 pt-2">
-                <button
-                  type="button"
-                  mat-button
-                  matStepperPrevious
-                  color="accent"
-                >
-                  رجوع
-                </button>
-              </div>
-            </div>
-          </ng-template>
-        </mat-step> -->
-      </mat-stepper>
-    </mat-card>
-  </div>
-</div>
+    حجز رحلة </mat-grid-tile>
+  <mat-grid-tile colspan="3" class="bg-info rounded-3 shadow-sm fs-2 text-white hand" routerLink="/all-trips">
+    الرحلات</mat-grid-tile>
+  <mat-grid-tile colspan="3" class="bg-info rounded-3 shadow-sm fs-2 text-white hand" routerLink="/settings">
+    الحسابات</mat-grid-tile>
+  <mat-grid-tile colspan="3" class="bg-info rounded-3 shadow-sm fs-2 text-white hand" routerLink="/add">
+    اضافة رحلات</mat-grid-tile>
+  <mat-grid-tile colspan="3" class="bg-info rounded-3 shadow-sm fs-2 text-white hand" routerLink="/bus-info">
+    بيانات العملاء</mat-grid-tile>
+  <mat-grid-tile colspan="3" class="bg-info rounded-3 shadow-sm fs-2 text-white hand" routerLink="/invoices-view">
+    عرض التذاكر</mat-grid-tile>
+  <mat-grid-tile colspan="3" class="bg-info rounded-3 shadow-sm fs-2 text-white hand" routerLink="/ticket-info">
+    بيانات التذاكر</mat-grid-tile>
+  <mat-grid-tile colspan="3" class="bg-info rounded-3 shadow-sm fs-2 text-white hand" routerLink="/bill-document">
+    سند قبض</mat-grid-tile>
+  <mat-grid-tile colspan="3" class="bg-info rounded-3 shadow-sm fs-2 text-white hand" routerLink="/auth/register">
+    تسجيل مستخدم جديد</mat-grid-tile>
+</mat-grid-list>

@@ -20,6 +20,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatRippleModule } from '@angular/material/core';
+import { MatGridListModule } from '@angular/material/grid-list';
 const materialModules = [
   MatTabsModule,
   MatFormFieldModule,
@@ -42,6 +45,9 @@ const materialModules = [
   MatPaginatorModule,
   MatSnackBarModule,
   MatSidenavModule,
+  MatChipsModule,
+  MatRippleModule,
+  MatGridListModule,
 ];
 
 @NgModule({

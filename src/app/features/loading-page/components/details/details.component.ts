@@ -10,12 +10,14 @@ import { Component, OnInit } from '@angular/core';
 import autoTable from 'jspdf-autotable';
 import jsPDF from 'jspdf';
 import * as moment from 'moment';
+
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss'],
 })
 export class DetailsComponent implements OnInit {
+  qr = new Image();
   ticketId: number[] = [];
   chairCount!: number;
   details!: FormGroup;
@@ -49,7 +51,18 @@ export class DetailsComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.travel
+      .generateQrCode({
+        sellerName: 'الكسار',
+        timestamp: new Date().toISOString(),
+        total: '100',
+        vatNumber: '6326663',
+        vatTotal: '15',
+      })
+      .subscribe((qrcode) => {
+        this.qr.src = String(qrcode);
+      });
     this.busSelect.chairCount.subscribe((value) => {
       this.chairCount = value;
     });
@@ -85,7 +98,7 @@ export class DetailsComponent implements OnInit {
     this.travel.getTicketDetailsByName('الكسار').subscribe((value) => {
       this.license = value.license;
       this.mobile = value.mobile;
-      this.terms = value.terms.split('-');
+      this.terms = value.terms;
     });
   }
 
@@ -176,10 +189,11 @@ export class DetailsComponent implements OnInit {
   pdf() {
     this.pdfBody = this.tickets;
     var img = new Image();
-    var qr =
-      'https://chart.googleapis.com/chart?cht=qr&chl=' +
-      'الكسار' +
-      '&chs=160x160&chld=L|0';
+
+    // var qr =
+    //   'https://chart.googleapis.com/chart?cht=qr&chl=' +
+    //   'الكسار' +
+    //   '&chs=160x160&chld=L|0';
     img.src = 'assets/images/logo.jpg';
     var pdf = new jsPDF('p', 'mm', 'a4');
     pdf.addFont('assets/fonts/Amiri-Regular.ttf', 'Amiri', 'normal');
@@ -261,7 +275,7 @@ export class DetailsComponent implements OnInit {
       align: 'right',
     });
 
-    pdf.addImage(qr, 'jpg', 160, 200, 40, 40);
+    pdf.addImage(this.qr, 'jpg', 160, 200, 40, 40);
     pdf.text('نتمني لكم رحلة سعيدة', 110, 280, { align: 'center' });
 
     pdf.autoPrint();

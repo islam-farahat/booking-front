@@ -1,30 +1,35 @@
 <form [formGroup]="ticketDetails" (submit)="submit()" class="w-25 mx-auto p-3">
   <div>
-    <mat-form-field class="w-100" appearance="fill">
+    <mat-form-field class="w-100" appearance="outline">
       <mat-label>رقم الجوال</mat-label>
-      <input
-        formControlName="mobile"
-        type="text"
-        matInput
-        placeholder="رقم الجوال"
-      />
+      <input formControlName="mobile" type="text" matInput placeholder="رقم الجوال" />
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field class="w-100" appearance="fill">
+    <mat-form-field class="w-100" appearance="outline">
       <mat-label>الترخيص</mat-label>
-      <input
-        formControlName="license"
-        type="text"
-        matInput
-        placeholder="الترخيص"
-      />
+      <input formControlName="license" type="text" matInput placeholder="الترخيص" />
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field class="w-100" appearance="fill">
-      <mat-label>الشروط و الاحكام</mat-label>
-      <textarea title="Terms" formControlName="terms" matInput></textarea>
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>الرقم الضريبي</mat-label>
+      <input formControlName="vatNumber" type="text" matInput placeholder="الرقم الضريبي" />
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>الشرواط و الاحكام</mat-label>
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let term of terms" [selectable]="selectable" [removable]="removable" (removed)="remove(term)">
+          {{ term }}
+          <mat-icon matChipRemove *ngIf="removable">close</mat-icon>
+        </mat-chip>
+        <input placeholder="اضافة شرط جديد" [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)" />
+      </mat-chip-list>
     </mat-form-field>
   </div>
 

@@ -23,7 +23,8 @@ export class BillDocumentAddComponent implements OnInit {
     license: '',
     mobile: '',
     branchName: '',
-    terms: '',
+    vatSerial: '',
+    terms: [],
   };
 
   constructor(
