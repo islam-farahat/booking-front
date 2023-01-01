@@ -5,7 +5,8 @@
 
     <div class="m-4 d-flex">
       <div class="ms-2 pt-1">
-        <button title="Search" type="submit" mat-flat-button color="primary" class="px-5 mt-2">
+        <button [disabled]="!searchBox.valid" title="Search" type="submit" mat-flat-button color="primary"
+          class="px-5 mt-2">
           بحث
         </button>
       </div>
@@ -56,8 +57,10 @@
       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
       </mat-paginator>
     </div>
-    <button type="button" class="m-1" mat-flat-button color="primary" (click)="print()">
-      Save To Excel File
+    <button [disabled]="!infoIsEmpty()" type="button" class="m-1" mat-flat-button color="primary" (click)="print()">
+      حفظ اكسيل<mat-icon class="me-1 mb-1">save</mat-icon>
     </button>
+    <button color="primary" [disabled]="!infoIsEmpty()" type="button" mat-flat-button (click)="pdf()"> طباعة <mat-icon
+        class="me-1">print</mat-icon> </button>
   </div>
 </div>

@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://islamfarahat.cloud:3000',
+  // API_URL: 'http://islamfarahat.cloud:3000',
 
-  // API_URL: 'http://localhost:4000',
+  API_URL: 'http://localhost:4000',
 };
 
 /*

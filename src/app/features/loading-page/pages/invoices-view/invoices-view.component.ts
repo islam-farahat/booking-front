@@ -193,8 +193,32 @@ export class InvoicesViewComponent implements OnInit {
     pdf.text('نتمني لكم رحلة سعيدة', 110, 280, { align: 'center' });
 
     pdf.autoPrint();
-    const blob = pdf.output('bloburl');
-    window.open(blob);
+    const hiddFrame = document.createElement('iframe');
+    hiddFrame.style.position = 'fixed';
+
+    hiddFrame.style.width = '1px';
+    hiddFrame.style.height = '1px';
+    hiddFrame.style.opacity = '0.01';
+    const isSafari = /^((?!chrome|android).)*safari/i.test(
+      window.navigator.userAgent
+    );
+    if (isSafari) {
+      // fallback in safari
+      hiddFrame.onload = () => {
+        try {
+          hiddFrame.contentWindow?.document.execCommand(
+            'print',
+            false,
+            undefined
+          );
+        } catch (e) {
+          hiddFrame.contentWindow?.print();
+        }
+      };
+    }
+    hiddFrame.src = pdf.output('bloburl').toString();
+    document.body.appendChild(hiddFrame);
+
     this.pdfBody.splice(0, this.pdfBody.length);
   }
 

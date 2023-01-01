@@ -5,6 +5,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { TravelRegisterService } from '../../services/travel-register.service';
 import * as moment from 'moment';
+import autoTable from 'jspdf-autotable';
+import jsPDF from 'jspdf';
 @Component({
   selector: 'app-bill-document-add',
   templateUrl: './bill-document-add.component.html',
@@ -59,32 +61,99 @@ export class BillDocumentAddComponent implements OnInit {
         },
         complete: () => {
           this.snackbar.open('تم الحفظ بنجاح', 'اغلاق', { duration: 1500 });
-          this.print();
+          this.pdf();
         },
       });
   }
 
-  print() {
-    let a = window.open('', '', 'height=800, width=800');
+  pdf() {
+    var img = new Image();
 
-    a?.document.write('<html lang="ar" dir="rtl">');
+    img.src = 'assets/images/logo.jpg';
+    var pdf = new jsPDF('p', 'mm', 'a4');
+    pdf.addFont('assets/fonts/Amiri-Regular.ttf', 'Amiri', 'normal');
+    pdf.setFont('Amiri');
+    pdf.setFontSize(18);
 
-    a?.document.write(` <head>
-    <style>
-    @media print {
-      body {
-        width: 100% !important;
-        height: 100% !important;
-      }
+    pdf.rect(
+      3,
+      3,
+      pdf.internal.pageSize.width - 6,
+      pdf.internal.pageSize.height - 6,
+      'S'
+    );
+    pdf.addImage(img, 'jpg', 10, 5, 25, 25);
+
+    pdf.text('سند قبض', 105, 10, {
+      align: 'center',
+    });
+    pdf.text(['الكسار', 'لخدمات العمرة و الزيارة'], 200, 10, {
+      align: 'right',
+    });
+    autoTable(pdf, {
+      margin: { top: 30 },
+      theme: 'plain',
+      bodyStyles: { font: 'Amiri', halign: 'right', fontSize: 15 },
+      body: [
+        [
+          this.ticketDetails.mobile,
+          'الهاتف',
+          this.ticketDetails.license,
+          'ترخيص',
+        ],
+      ],
+    });
+
+    pdf.line(10, 45, 200, 45);
+    pdf.text('بسم الله الرحمن الرحيم', 110, 60, { align: 'center' });
+
+    pdf.setFontSize(16);
+
+    autoTable(pdf, {
+      startY: 70,
+
+      theme: 'striped',
+      bodyStyles: { font: 'Amiri', halign: 'right', fontSize: 16 },
+      body: [
+        [moment(this.billDocument.value.date!).format('YYYY-MM-DD'), 'التاريخ'],
+        [this.billDocument.value.name!, 'استلمت من المكرم'],
+        [this.billDocument.value.price!, 'مبلغ و قدرة'],
+        [this.billDocument.value.count!, 'و ذلك اجرة تاجير اتوبيس عدد'],
+        [this.billDocument.value.from!, 'من'],
+        [this.billDocument.value.to!, 'الي'],
+        ['و العودة'],
+        [this.billDocument.value.to!, 'من'],
+        [this.billDocument.value.from!, 'الي'],
+      ],
+    });
+    pdf.text('الختم', 170, 190, { align: 'right' });
+    pdf.text('المستلم', 40, 190, { align: 'left' });
+
+    pdf.autoPrint();
+    const hiddFrame = document.createElement('iframe');
+    hiddFrame.style.position = 'fixed';
+
+    hiddFrame.style.width = '1px';
+    hiddFrame.style.height = '1px';
+    hiddFrame.style.opacity = '0.01';
+    const isSafari = /^((?!chrome|android).)*safari/i.test(
+      window.navigator.userAgent
+    );
+    if (isSafari) {
+      // fallback in safari
+      hiddFrame.onload = () => {
+        try {
+          hiddFrame.contentWindow?.document.execCommand(
+            'print',
+            false,
+            undefined
+          );
+        } catch (e) {
+          hiddFrame.contentWindow?.print();
+        }
+      };
     }
-  </style>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    </head>`);
-
-    a?.document.write('<body >');
-    a?.document.write(document.getElementById('contentToPrint')?.innerHTML!);
-    a?.document.write('</body></html>');
-    a?.document.close();
-    a?.print();
+    hiddFrame.src = pdf.output('bloburl').toString();
+    document.body.appendChild(hiddFrame);
   }
 }

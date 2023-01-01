@@ -1,7 +1,7 @@
 import { TravelRegisterService } from './../../services/travel-register.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { COMMA, ENTER, V } from '@angular/cdk/keycodes';
+import { ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
@@ -11,9 +11,9 @@ import { MatChipInputEvent } from '@angular/material/chips';
 })
 export class TicketInfoComponent implements OnInit {
   ticketDetails = this.fb.group({
-    license: [''],
-    mobile: [''],
-    vatNumber: [''],
+    license: ['', Validators.required],
+    mobile: ['', Validators.required],
+    vatNumber: ['', Validators.required],
   });
 
   terms: string[] = [];
@@ -21,7 +21,7 @@ export class TicketInfoComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly separatorKeysCodes: number[] = [ENTER];
 
   constructor(private fb: FormBuilder, private travel: TravelRegisterService) {}
 

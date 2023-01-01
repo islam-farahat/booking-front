@@ -1,5 +1,5 @@
+import { ITicketDetails } from './../../models/ticket_details.model';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ITrip } from './../../models/trip.model';
 import { BehaviorSubject } from 'rxjs';
@@ -21,15 +21,15 @@ export class DetailsComponent implements OnInit {
   ticketId: number[] = [];
   chairCount!: number;
   details!: FormGroup;
-  // qr =
-  //   'https://chart.googleapis.com/chart?cht=qr&chl=Hello+World&chs=160x160&chld=L|0';
+  ticketDetails: ITicketDetails = {
+    branchName: '',
+    license: '',
+    mobile: '',
+    vatSerial: '',
+    terms: [],
+  };
   currentDate!: string;
-  terms: string[] = [];
-  license!: string;
-  mobile!: string;
 
-  // chairCount: BehaviorSubject<number> = this.busSelect.chairCount;
-  // ticketsId: BehaviorSubject<number[]> = this.busSelect.ticketId;
   tripId: BehaviorSubject<number> = this.busSelect.tripId;
   tickets: ITicket[] = [];
   pdfBody: any[] = [{}];
@@ -52,53 +52,47 @@ export class DetailsComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.travel
-      .generateQrCode({
-        sellerName: 'الكسار',
-        timestamp: new Date().toISOString(),
-        total: '100',
-        vatNumber: '6326663',
-        vatTotal: '15',
-      })
-      .subscribe((qrcode) => {
-        this.qr.src = String(qrcode);
-      });
     this.busSelect.chairCount.subscribe((value) => {
       this.chairCount = value;
     });
+    moment.locale();
+    this.currentDate = moment().format('LL');
     this.details = this.fb.group({
       person: this.fb.array([]),
     });
     for (let i = 0; i < this.chairCount; i++) {
       this.addPerson();
     }
-
-    moment.locale();
-    this.currentDate = moment().format('LL');
-    this.awaitTimeout(1000).then(() => {
-      this.travel.getTrip(this.tripId.value).subscribe((trip: ITrip) => {
-        this.trip = trip;
-      });
+    this.travel.getTicketDetailsByName('الكسار').subscribe({
+      next: (value) => {
+        this.ticketDetails = value;
+      },
+      complete: () => {},
     });
 
-    // this.awaitTimeout(1000).then(() => {
-    //   // this.busSelect.ticketId.subscribe((obj) => {
-    //     obj.forEach((id) => {
-    //       this.travel.getTicket(id).subscribe((value) => {
-    //         this.tickets.push(value);
-    //       });
-    //     });
-    //   // });
-    // });
-
-    // this.qr =
-    //   'https://chart.googleapis.com/chart?cht=qr&chl=' +
-    //   'الكسار' +
-    //   '&chs=160x160&chld=L|0';
-    this.travel.getTicketDetailsByName('الكسار').subscribe((value) => {
-      this.license = value.license;
-      this.mobile = value.mobile;
-      this.terms = value.terms;
+    this.awaitTimeout(1000).then(() => {
+      this.travel.getTrip(this.tripId.value).subscribe({
+        next: (trip: ITrip) => {
+          this.trip = trip;
+        },
+        complete: () => {
+          this.travel
+            .generateQrCode({
+              sellerName: 'الكسار',
+              timestamp: new Date().toISOString(),
+              total: (Number(this.trip.price) * this.chairCount).toString(),
+              vatNumber: this.ticketDetails.vatSerial,
+              vatTotal: (
+                Number(this.trip.price) *
+                this.chairCount *
+                0.15
+              ).toString(),
+            })
+            .subscribe((qrcode) => {
+              this.qr.src = String(qrcode);
+            });
+        },
+      });
     });
   }
 
@@ -119,11 +113,7 @@ export class DetailsComponent implements OnInit {
   }
 
   submit() {
-    // let busId: number;
     let chairNumber: number[] = [];
-    // this.busSelect.tripId.subscribe((value) => {
-    //   busId = value;
-    // });
     this.busSelect.chairNumber.subscribe((value) => {
       chairNumber = value;
     });
@@ -152,20 +142,7 @@ export class DetailsComponent implements OnInit {
           },
         });
     }
-    // this.busSelect.ticketId.next(this.ticketId);
   }
-
-  //  myPromise = new Promise<void>(function(myResolve, myReject) {
-
-  //   myResolve(); // when successful
-  //   myReject();  // when error
-  // });
-
-  // "Consuming Code" (Must wait for a fulfilled Promise)
-  // myPromise.then(
-  //   function(value) { /* code if successful */ },
-  //   function(error) { /* code if some error */ }
-  // );
 
   awaitTimeout = (delay: number) =>
     new Promise((resolve) => setTimeout(resolve, delay));
@@ -190,10 +167,6 @@ export class DetailsComponent implements OnInit {
     this.pdfBody = this.tickets;
     var img = new Image();
 
-    // var qr =
-    //   'https://chart.googleapis.com/chart?cht=qr&chl=' +
-    //   'الكسار' +
-    //   '&chs=160x160&chld=L|0';
     img.src = 'assets/images/logo.jpg';
     var pdf = new jsPDF('p', 'mm', 'a4');
     pdf.addFont('assets/fonts/Amiri-Regular.ttf', 'Amiri', 'normal');
@@ -220,7 +193,12 @@ export class DetailsComponent implements OnInit {
       theme: 'plain',
       bodyStyles: { font: 'Amiri', halign: 'right' },
       body: [
-        [this.mobile, 'الهاتف', this.license, 'ترخيص'],
+        [
+          this.ticketDetails.mobile,
+          'الهاتف',
+          this.ticketDetails.license,
+          'ترخيص',
+        ],
         [this.currentDate, 'التاريخ', '5', 'رقم التذكرة'],
       ],
     });
@@ -271,7 +249,7 @@ export class DetailsComponent implements OnInit {
     });
     pdf.line(10, 145, 200, 145);
     pdf.setFontSize(16);
-    pdf.text(this.terms, 200, 170, {
+    pdf.text(this.ticketDetails.terms, 200, 170, {
       align: 'right',
     });
 
@@ -279,8 +257,31 @@ export class DetailsComponent implements OnInit {
     pdf.text('نتمني لكم رحلة سعيدة', 110, 280, { align: 'center' });
 
     pdf.autoPrint();
-    const blob = pdf.output('bloburl');
-    window.open(blob);
-    this.pdfBody.splice(0, this.pdfBody.length);
+
+    const hiddFrame = document.createElement('iframe');
+    hiddFrame.style.position = 'fixed';
+
+    hiddFrame.style.width = '1px';
+    hiddFrame.style.height = '1px';
+    hiddFrame.style.opacity = '0.01';
+    const isSafari = /^((?!chrome|android).)*safari/i.test(
+      window.navigator.userAgent
+    );
+    if (isSafari) {
+      // fallback in safari
+      hiddFrame.onload = () => {
+        try {
+          hiddFrame.contentWindow?.document.execCommand(
+            'print',
+            false,
+            undefined
+          );
+        } catch (e) {
+          hiddFrame.contentWindow?.print();
+        }
+      };
+    }
+    hiddFrame.src = pdf.output('bloburl').toString();
+    document.body.appendChild(hiddFrame);
   }
 }

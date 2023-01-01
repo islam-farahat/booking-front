@@ -30,11 +30,14 @@
         <mat-card class="mb-1">
             <div class="row">
                 <div class="col-2">التاريخ : <span class="p-1">{{item.date|date}}</span></div>
-                <div class="col-3">اسم المستلم :<span class="p-1">{{item.fullName}}</span></div>
+                <div class="col-2">اسم المستلم :<span class="p-1">{{item.fullName}}</span></div>
                 <div class="col-1">المبلغ :<span class="p-1">{{item.price}}</span></div>
                 <div class="col-2">عدد التوبيسات :<span class="p-1">{{item.buscount}}</span></div>
                 <div class="col-2">من :<span class="p-1">{{item.from}}</span></div>
                 <div class="col-2">الي :<span class="p-1">{{item.to}}</span></div>
+                <div class="col-1"><button type="button" color="primary" (click)="pdf(item.id!)"
+                        mat-fab><mat-icon>print</mat-icon></button></div>
+
             </div>
         </mat-card>
     </div>

@@ -13,51 +13,10 @@
 	<button type="button" mat-menu-item (click)="logout()">تسجيل خروج</button>
 </mat-menu>
 
-<!-- <mat-drawer-container autosize class="vh-100">
-	<mat-drawer class="d-size" #drawer mode="over">
-		<div class="nav-size"></div>
-		<button type="button" mat-menu-item routerLink="/">
-			<mat-icon>home</mat-icon> الصفحة الرئيسية
-		</button>
-		<button type="button" mat-menu-item routerLink="/reserve">
-			<mat-icon>directions_bus</mat-icon> حجز رحلة
-		</button>
-		<button type="button" mat-menu-item routerLink="/all-trips">
-			<mat-icon>format_list_bulleted</mat-icon> الرحلات
-		</button>
-		<button type="button" mat-menu-item routerLink="/settings">
-			<mat-icon>payments</mat-icon>الحسابات
-		</button>
-		<button type="button" mat-menu-item routerLink="/add">
-			<mat-icon>add</mat-icon>اضافة رحلات
-		</button>
-		<button type="button" mat-menu-item routerLink="/bus-info">
-			<mat-icon>groups</mat-icon> بيانات العملاء
-		</button>
-		<button type="button" mat-menu-item routerLink="/invoices-view">
-			<mat-icon>receipt_long</mat-icon> عرض التذاكر
-		</button>
-		<button type="button" mat-menu-item routerLink="/ticket-info">
-			<mat-icon>edit</mat-icon> بيانات التذكرة
-		</button>
-		<button type="button" mat-menu-item routerLink="/bill-document">
-			<mat-icon>receipt_long</mat-icon> سند قبض
-		</button>
-		<button type="button" mat-menu-item routerLink="/auth/register">
-			<mat-icon>person</mat-icon>تسجيل مستخدم جديد
-		</button>
-	</mat-drawer>
-
-	<div class="container-fluid">
-		<div class="nav-size"></div>
-		<router-outlet></router-outlet>
-	</div>
-</mat-drawer-container> -->
-
-<div class="container-fluid ">
-	<div class="row vh-100">
-		<div *ngIf="sideNav" class="side-nav-size ">
-			<mat-list class="text-center">
+<div class="container-fluid px-0" style="overflow-x: hidden;">
+	<div class="row vh-100 ">
+		<div *ngIf="sideNav" class="side-nav-size bg-teal text-white">
+			<mat-list class="text-center pe-2">
 				<div class="nav-size"></div>
 				<mat-icon (click)="changeColor(1)" routerLink="/" class="fs-3 my-2 hand">home</mat-icon>
 
@@ -96,46 +55,49 @@
 		</div>
 		<div class="col">
 			<mat-drawer-container class="h-100" autosize>
-				<mat-drawer class="drawer-size" #open mode="side">
+				<mat-drawer class="drawer-size bg-teal text-white ps-2" #open mode="side">
 					<mat-list>
 						<div class="nav-size"></div>
-						<mat-list-item (click)="changeColor(1)" class="hand btn1" routerLink="/">
+						<mat-list-item (click)="changeColor(1)" class="hand btn1 text-white" routerLink="/">
 							<mat-icon class="ms-1">home</mat-icon><span class="ms-3">الصفحة الرئيسية</span>
 						</mat-list-item>
 						<mat-divider></mat-divider>
-						<mat-list-item (click)="changeColor(2)" class="hand btn2" routerLink="/reserve">
+						<mat-list-item (click)="changeColor(2)" class="hand btn2 text-white" routerLink="/reserve">
 							<mat-icon class="ms-1">directions_bus</mat-icon><span class="ms-3">حجز رحلة</span>
 						</mat-list-item>
 						<mat-divider></mat-divider>
-						<mat-list-item (click)="changeColor(3)" class="hand btn3" routerLink="/all-trips">
+						<mat-list-item (click)="changeColor(3)" class="hand btn3 text-white" routerLink="/all-trips">
 							<mat-icon class="ms-1">format_list_bulleted</mat-icon><span class="ms-3">الرحلات</span>
 						</mat-list-item>
 						<mat-divider></mat-divider>
-						<mat-list-item (click)="changeColor(4)" class="hand btn4" routerLink="/settings">
+						<mat-list-item (click)="changeColor(4)" class="hand btn4 text-white" routerLink="/settings">
 							<mat-icon class="ms-1">payments</mat-icon><span class="ms-3">الحسابات</span>
 						</mat-list-item>
 						<mat-divider></mat-divider>
-						<mat-list-item (click)="changeColor(5)" class="hand btn5" routerLink="/add">
+						<mat-list-item (click)="changeColor(5)" class="hand btn5 text-white" routerLink="/add">
 							<mat-icon class="ms-1">add</mat-icon><span class="ms-3">اضافة رحلات</span>
 						</mat-list-item>
 						<mat-divider></mat-divider>
-						<mat-list-item (click)="changeColor(6)" class="hand btn6" routerLink="/bus-info">
+						<mat-list-item (click)="changeColor(6)" class="hand btn6 text-white" routerLink="/bus-info">
 							<mat-icon class="ms-1">groups</mat-icon><span class="ms-3">بيانات العملاء</span>
 						</mat-list-item>
 						<mat-divider></mat-divider>
-						<mat-list-item (click)="changeColor(7)" class="hand btn7" routerLink="/invoices-view">
+						<mat-list-item (click)="changeColor(7)" class="hand btn7 text-white"
+							routerLink="/invoices-view">
 							<mat-icon class="ms-1">receipt_long</mat-icon><span class="ms-3">عرض التذاكر</span>
 						</mat-list-item>
 						<mat-divider></mat-divider>
-						<mat-list-item (click)="changeColor(8)" class="hand btn8" routerLink="/ticket-info">
+						<mat-list-item (click)="changeColor(8)" class="hand btn8 text-white" routerLink="/ticket-info">
 							<mat-icon class="ms-1">edit</mat-icon><span class="ms-3">بيانات التذكرة</span>
 						</mat-list-item>
 						<mat-divider></mat-divider>
-						<mat-list-item (click)="changeColor(9)" class="hand btn9" routerLink="/bill-document">
+						<mat-list-item (click)="changeColor(9)" class="hand btn9 text-white"
+							routerLink="/bill-document">
 							<mat-icon class="ms-1">receipt_long</mat-icon><span class="ms-3">سند قبض</span>
 						</mat-list-item>
 						<mat-divider></mat-divider>
-						<mat-list-item (click)="changeColor(10)" class="hand btn10" routerLink="/auth/register">
+						<mat-list-item (click)="changeColor(10)" class="hand btn10 text-white"
+							routerLink="/auth/register">
 							<mat-icon class="ms-1">person</mat-icon><span class="ms-3">تسجيل مستخدم جديد</span>
 						</mat-list-item>
 
@@ -143,9 +105,7 @@
 				</mat-drawer>
 				<mat-drawer-content>
 					<div class="nav-size"></div>
-					<div class="p-2">
-						<router-outlet></router-outlet>
-					</div>
+					<router-outlet></router-outlet>
 				</mat-drawer-content>
 			</mat-drawer-container>
 		</div>

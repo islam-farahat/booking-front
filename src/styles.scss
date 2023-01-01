@@ -57,3 +57,12 @@ a {
 .hand {
   cursor: pointer;
 }
+.-bg-primary {
+  background-color: mat.get-color-from-palette(
+    $booking_bus-primary,
+    500
+  ) !important;
+}
+.-text-primary {
+  color: mat.get-color-from-palette($booking_bus-primary, 500) !important;
+}

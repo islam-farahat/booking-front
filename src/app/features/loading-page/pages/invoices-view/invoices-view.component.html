@@ -40,7 +40,8 @@
                 <ng-container matColumnDef="chairNumber">
                     <th mat-header-cell *matHeaderCellDef>طباعة</th>
                     <td mat-cell *matCellDef="let element"><button mat-flat-button color="primary" type="button"
-                            class="col-2" (click)="print(element.id!)">طباعة</button></td>
+                            (click)="print(element.id!)">طباعة<mat-icon class="me-1 ">print</mat-icon></button>
+                    </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
