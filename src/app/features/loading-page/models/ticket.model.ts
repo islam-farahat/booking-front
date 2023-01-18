@@ -7,4 +7,5 @@ export interface ITicket {
   busNumber: number;
   chairNumber: number;
   date?: string;
+  complete: boolean;
 }

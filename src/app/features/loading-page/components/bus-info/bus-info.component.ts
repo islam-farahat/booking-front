@@ -42,6 +42,9 @@ export class BusInfoComponent implements OnInit {
   }
   search() {
     this.info.splice(0);
+    this.travel.getInvoices().subscribe((value) => {
+      console.log(value);
+    });
 
     this.travel
       .getTicketsByBusId(Number(this.searchBox.value.search))

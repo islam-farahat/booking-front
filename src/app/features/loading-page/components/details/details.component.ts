@@ -43,6 +43,7 @@ export class DetailsComponent implements OnInit {
     time: '',
     to: '',
   };
+  id: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -126,6 +127,7 @@ export class DetailsComponent implements OnInit {
           idNumber: this.details.value['person'][i]['idNumber'],
           busNumber: this.tripId.value,
           chairNumber: chairNumber[i]!,
+          complete: true,
         })
         .subscribe({
           error: (e) => {},
@@ -159,6 +161,10 @@ export class DetailsComponent implements OnInit {
         complete: true,
       })
       .subscribe({
+        next: (value) => {
+          this.id = value.id!;
+        },
+
         complete: () => {
           this.pdf();
         },
@@ -204,7 +210,7 @@ export class DetailsComponent implements OnInit {
           this.ticketDetails.license,
           'ترخيص',
         ],
-        [this.currentDate, 'التاريخ', '5', 'رقم التذكرة'],
+        [this.currentDate, 'التاريخ', this.id, 'رقم التذكرة'],
       ],
     });
     pdf.line(10, 50, 200, 50);

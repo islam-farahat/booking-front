@@ -1,6 +1,6 @@
 import { Invoice } from './../../models/invoice.model';
 import { ITicket } from './../../models/ticket.model';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as moment from 'moment';
@@ -9,6 +9,95 @@ import { TravelRegisterService } from '../../services/travel-register.service';
 import { ITrip } from '../../models/trip.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ITicketDetails } from '../../models/ticket_details.model';
+
+@Component({
+  selector: 'ticket-cancel-dialog',
+  template: `<h1 class="text-center" mat-dialog-title>الغاء الحجز</h1>
+    <div mat-dialog-content>
+      <p>هل متاكد من الغاء الحجز</p>
+    </div>
+    <div mat-dialog-actions>
+      <button matDialogClose type="button" color="primary" mat-flat-button>
+        لا
+      </button>
+      <button
+        (click)="cancel()"
+        type="button"
+        color="warn"
+        mat-flat-button
+        cdkFocusInitial
+      >
+        نعم
+      </button>
+    </div> `,
+})
+export class TicketCancelDialog {
+  constructor(
+    private travel: TravelRegisterService,
+    @Inject(MAT_DIALOG_DATA) private data: number
+  ) {}
+  cancel() {
+    this.travel.getInvoiceById(this.data).subscribe((invoice) => {
+      this.travel
+        .updateInvoice({
+          id: invoice.id,
+          tripId: invoice.tripId,
+          ticketId: invoice.ticketId,
+          complete: false,
+          date: invoice.date,
+        })
+        .subscribe({
+          next: (value) => {
+            value.ticketId.forEach((id) => {
+              this.travel.getTicket(id).subscribe({
+                next: (ticket) => {
+                  this.travel.getTrip(invoice.tripId).subscribe({
+                    next: (trip) => {
+                      trip.seats[ticket.chairNumber] = false;
+                      this.travel
+                        .updateTrip({
+                          id: trip.id,
+                          busNumber: trip.busNumber,
+                          date: trip.date,
+                          from: trip.from,
+                          to: trip.to,
+                          price: trip.price,
+                          seatsCount: trip.seatsCount + 1,
+                          time: trip.time,
+                          seats: trip.seats,
+                        })
+                        .subscribe();
+                    },
+                    complete: () => {
+                      window.location.reload();
+                    },
+                  });
+                  this.travel
+                    .updateTicket({
+                      id: ticket.id,
+                      fullName: ticket.fullName,
+                      idNumber: ticket.idNumber,
+                      busNumber: ticket.busNumber,
+                      date: ticket.date,
+                      chairNumber: ticket.chairNumber,
+                      mobile: ticket.mobile,
+                      complete: false,
+                      nationality: ticket.nationality,
+                    })
+                    .subscribe({
+                      complete: () => {},
+                    });
+                },
+              });
+            });
+          },
+          complete: () => {},
+        });
+    });
+  }
+}
 
 @Component({
   selector: 'app-invoices-view',
@@ -23,6 +112,7 @@ export class InvoicesViewComponent implements OnInit {
     'mobile',
     'idNumber',
     'date',
+    'action',
     'chairNumber',
   ];
 
@@ -46,8 +136,13 @@ export class InvoicesViewComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource = new MatTableDataSource<ITicket>(this.ticketsView);
   Invoice!: Invoice;
+  qr = new Image();
+  ticketDetails!: ITicketDetails;
 
-  constructor(private travel: TravelRegisterService) {
+  constructor(
+    private travel: TravelRegisterService,
+    private dialog: MatDialog
+  ) {
     this.travel.getInvoices().subscribe({
       next: (obj) => {
         obj.forEach((value) => {
@@ -88,6 +183,18 @@ export class InvoicesViewComponent implements OnInit {
       },
       error: (error) => {},
       complete: () => {
+        this.travel
+          .generateQrCode({
+            sellerName: 'الكسار',
+            timestamp: new Date().toISOString(),
+            total: Number(this.trip.price).toString(),
+            vatNumber: this.ticketDetails.vatSerial,
+            vatTotal: (Number(this.trip.price) * 0.15).toString(),
+          })
+          .subscribe((qrcode) => {
+            this.qr.src = String(qrcode);
+          });
+
         this.awaitTimeout(200).then(() => {
           this.pdf();
         });
@@ -95,6 +202,12 @@ export class InvoicesViewComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    this.travel.getTicketDetailsByName('الكسار').subscribe({
+      next: (value) => {
+        this.ticketDetails = value;
+      },
+      complete: () => {},
+    });
     moment.locale();
 
     this.travel.getTicketDetailsByName('الكسار').subscribe((value) => {
@@ -108,10 +221,7 @@ export class InvoicesViewComponent implements OnInit {
     this.pdfBody = this.tickets;
 
     var img = new Image();
-    var qr =
-      'https://chart.googleapis.com/chart?cht=qr&chl=' +
-      'الكسار' +
-      '&chs=160x160&chld=L|0';
+
     img.src = 'assets/images/logo.jpg';
     var pdf = new jsPDF('p', 'mm', 'a4');
     pdf.addFont('assets/fonts/Amiri-Regular.ttf', 'Amiri', 'normal');
@@ -198,7 +308,7 @@ export class InvoicesViewComponent implements OnInit {
       align: 'right',
     });
 
-    pdf.addImage(qr, 'jpg', 160, 200, 40, 40);
+    pdf.addImage(this.qr, 'jpg', 160, 200, 40, 40);
     pdf.text('نتمني لكم رحلة سعيدة', 110, 280, { align: 'center' });
 
     pdf.autoPrint();
@@ -234,5 +344,12 @@ export class InvoicesViewComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  cancelInvoice(invoiceId: number) {
+    this.dialog.open(TicketCancelDialog, { data: invoiceId });
+  }
+  diffBetweenDates(date1: Date, date2: Date) {
+    return moment(date1).diff(moment(date2), 'days');
   }
 }

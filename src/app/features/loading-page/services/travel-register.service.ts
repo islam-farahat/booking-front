@@ -117,6 +117,12 @@ export class TravelRegisterService {
       invoice
     );
   }
+  updateTicket(ticket: ITicket): Observable<ITicket> {
+    return this.http.put<ITicket>(
+      `${environment.API_URL}/ticket/${ticket.id}`,
+      ticket
+    );
+  }
 
   generateQrCode(dto: Qrcode): Observable<Qrcode> {
     return this.http.post<Qrcode>(

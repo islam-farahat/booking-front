@@ -14,16 +14,16 @@ import { AddComponent } from './pages/add/add.component';
 import { BusComponent } from './components/bus/bus.component';
 import { CityComponent } from './components/city/city.component';
 import { TeravalComponent } from './components/teraval/teraval.component';
-import {
-  SettingsComponent,
-  TicketCancelDialog,
-} from './components/settings/settings.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { BusInfoComponent } from './components/bus-info/bus-info.component';
 import { BillDocumentComponent } from './pages/bill-document/bill-document.component';
 import { AllTripsComponent } from './components/all-trips/all-trips.component';
 import { BillDocumentViewComponent } from './components/bill-document-view/bill-document-view.component';
 import { BillDocumentAddComponent } from './components/bill-document-add/bill-document-add.component';
-import { InvoicesViewComponent } from './pages/invoices-view/invoices-view.component';
+import {
+  InvoicesViewComponent,
+  TicketCancelDialog,
+} from './pages/invoices-view/invoices-view.component';
 import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({

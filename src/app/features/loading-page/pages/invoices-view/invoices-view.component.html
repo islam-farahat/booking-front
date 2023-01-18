@@ -41,6 +41,14 @@
                     <th mat-header-cell *matHeaderCellDef>التاريخ</th>
                     <td mat-cell *matCellDef="let element">{{ element.date |date }}</td>
                 </ng-container>
+                <ng-container matColumnDef="action">
+
+                    <th mat-header-cell *matHeaderCellDef>الغاء الحجز</th>
+                    <td mat-cell *matCellDef="let element"> <button [disabled]="!element.complete" type="button"
+                            (click)="cancelInvoice(element.id)" mat-mini-fab color="warn"><mat-icon
+                                class="fs-5">close</mat-icon>
+                        </button> </td>
+                </ng-container>
                 <ng-container matColumnDef="chairNumber">
                     <th mat-header-cell *matHeaderCellDef>طباعة</th>
                     <td mat-cell *matCellDef="let element"><button mat-flat-button color="primary" type="button"
