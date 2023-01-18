@@ -152,7 +152,12 @@ export class DetailsComponent implements OnInit {
 
   reserve() {
     this.travel
-      .addInvoice({ ticketId: this.ticketId, tripId: this.tripId.value })
+      .addInvoice({
+        ticketId: this.ticketId,
+        tripId: this.tripId.value,
+        date: moment(new Date()).format('YYYY-MM-DD'),
+        complete: true,
+      })
       .subscribe({
         complete: () => {
           this.pdf();
@@ -219,7 +224,6 @@ export class DetailsComponent implements OnInit {
       ],
       body: this.pdfBody,
     });
-
     autoTable(pdf, {
       margin: { top: 90 },
       theme: 'striped',

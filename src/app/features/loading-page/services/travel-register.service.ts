@@ -111,6 +111,13 @@ export class TravelRegisterService {
       `${environment.API_URL}/invoice/${invoiceId}`
     );
   }
+  updateInvoice(invoice: Invoice): Observable<Invoice> {
+    return this.http.put<Invoice>(
+      `${environment.API_URL}/invoice/${invoice.id}`,
+      invoice
+    );
+  }
+
   generateQrCode(dto: Qrcode): Observable<Qrcode> {
     return this.http.post<Qrcode>(
       `${environment.API_URL}/ticket-details/qr-code`,

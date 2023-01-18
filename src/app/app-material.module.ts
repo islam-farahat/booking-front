@@ -23,6 +23,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatRippleModule } from '@angular/material/core';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDialogModule } from '@angular/material/dialog';
 const materialModules = [
   MatTabsModule,
   MatFormFieldModule,
@@ -48,6 +49,7 @@ const materialModules = [
   MatChipsModule,
   MatRippleModule,
   MatGridListModule,
+  MatDialogModule,
 ];
 
 @NgModule({

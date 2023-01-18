@@ -6,4 +6,5 @@ export interface ITicket {
   id?: number;
   busNumber: number;
   chairNumber: number;
+  date?: string;
 }

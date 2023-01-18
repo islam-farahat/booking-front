@@ -1,3 +1,4 @@
+import { Invoice } from './../../models/invoice.model';
 import { ITicket } from './../../models/ticket.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import jsPDF from 'jspdf';
@@ -21,10 +22,10 @@ export class InvoicesViewComponent implements OnInit {
     'nationality',
     'mobile',
     'idNumber',
+    'date',
     'chairNumber',
   ];
 
-  currentDate: string = '';
   terms: string[] = [];
   license: string = '';
   mobile: string = '';
@@ -44,6 +45,7 @@ export class InvoicesViewComponent implements OnInit {
   };
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource = new MatTableDataSource<ITicket>(this.ticketsView);
+  Invoice!: Invoice;
 
   constructor(private travel: TravelRegisterService) {
     this.travel.getInvoices().subscribe({
@@ -51,6 +53,8 @@ export class InvoicesViewComponent implements OnInit {
         obj.forEach((value) => {
           this.travel.getTicket(value.ticketId[0]).subscribe((ticket) => {
             ticket.id = value.id;
+            ticket.date = value.date;
+
             this.ticketsView.push(Object.assign({}, ticket));
           });
         });
@@ -72,6 +76,7 @@ export class InvoicesViewComponent implements OnInit {
   print(invoiceId: number) {
     this.travel.getInvoiceById(invoiceId).subscribe({
       next: (invoice) => {
+        this.Invoice = invoice;
         this.travel.getTrip(invoice.tripId).subscribe((trip: ITrip) => {
           this.trip = trip;
         });
@@ -91,7 +96,6 @@ export class InvoicesViewComponent implements OnInit {
   }
   ngOnInit(): void {
     moment.locale();
-    this.currentDate = moment().format('LL');
 
     this.travel.getTicketDetailsByName('الكسار').subscribe((value) => {
       this.license = value.license;
@@ -135,7 +139,12 @@ export class InvoicesViewComponent implements OnInit {
       bodyStyles: { font: 'Amiri', halign: 'right' },
       body: [
         [this.mobile, 'الهاتف', this.license, 'ترخيص'],
-        [this.currentDate, 'التاريخ', '5', 'رقم التذكرة'],
+        [
+          moment(this.Invoice.date).format('LL'),
+          'التاريخ',
+          this.Invoice.id!,
+          'رقم التذكرة',
+        ],
       ],
     });
     pdf.line(10, 50, 200, 50);

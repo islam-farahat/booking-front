@@ -14,7 +14,10 @@ import { AddComponent } from './pages/add/add.component';
 import { BusComponent } from './components/bus/bus.component';
 import { CityComponent } from './components/city/city.component';
 import { TeravalComponent } from './components/teraval/teraval.component';
-import { SettingsComponent } from './components/settings/settings.component';
+import {
+  SettingsComponent,
+  TicketCancelDialog,
+} from './components/settings/settings.component';
 import { BusInfoComponent } from './components/bus-info/bus-info.component';
 import { BillDocumentComponent } from './pages/bill-document/bill-document.component';
 import { AllTripsComponent } from './components/all-trips/all-trips.component';
@@ -43,6 +46,7 @@ import { HomeComponent } from './pages/home/home.component';
     BillDocumentAddComponent,
     InvoicesViewComponent,
     HomeComponent,
+    TicketCancelDialog,
   ],
   imports: [CommonModule, LoadingPageRoutingModule, AppMaterialModule],
 })

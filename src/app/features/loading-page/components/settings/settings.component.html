@@ -2,15 +2,26 @@
   <mat-tab label="الحسابات">
     <ng-template matTabContent>
       <div class="container-fluid">
+
         <div class="row p-3">
-          <div class="col-6">
+
+          <div class="col-4">
             <mat-card class="bg-primary text-white">
               <mat-card-title class="text-center"> الاجمالي </mat-card-title>
               <mat-divider class="py-1"></mat-divider>
               <div class="text-center p-3 display-6">{{ total }}</div>
             </mat-card>
           </div>
-          <div class="col-6">
+          <div class="col-4">
+            <mat-card class="bg-danger text-white">
+              <mat-card-title class="text-center"> المرتجع </mat-card-title>
+              <mat-divider class="py-1"></mat-divider>
+              <div class="text-center p-3 display-6">
+                {{ throwback }}
+              </div>
+            </mat-card>
+          </div>
+          <div class="col-4">
             <mat-card class="bg-warning text-white">
               <mat-card-title class="text-center"> الضرائب </mat-card-title>
               <mat-divider class="py-1"></mat-divider>
@@ -26,7 +37,12 @@
   <mat-tab label="المبيعات">
     <ng-template matTabContent>
       <div class="container-fluid bg-light">
-        <div class="p-5">
+        <div class=" my-2 d-flex justify-content-center">
+          <mat-form-field class="form-field-size" appearance="outline">
+            <input matInput (keyup)="applyFilter($event)" placeholder="بحث" #input>
+          </mat-form-field>
+        </div>
+        <div class="px-5 pb-2">
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container matColumnDef="id">
               <th mat-header-cell *matHeaderCellDef>رقم التذكرة</th>
@@ -40,7 +56,14 @@
 
             <ng-container matColumnDef="date">
               <th mat-header-cell *matHeaderCellDef>التاريخ</th>
-              <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+              <td mat-cell *matCellDef="let element">{{ element.date | date}}</td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+
+              <th mat-header-cell *matHeaderCellDef>الغاء الحجز</th>
+              <td mat-cell *matCellDef="let element"> <button [disabled]="!element.complete" type="button"
+                  (click)="cancelInvoice(element.id)" mat-mini-fab color="warn"><mat-icon class="fs-5">close</mat-icon>
+                </button> </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -8,4 +8,5 @@ export interface ITrip {
   seatsCount: number;
   seats: boolean[];
   id?: number;
+  complete?: boolean;
 }
