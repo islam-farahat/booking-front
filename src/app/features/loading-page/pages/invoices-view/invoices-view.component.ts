@@ -239,7 +239,7 @@ export class InvoicesViewComponent implements OnInit {
     //header
     //right section
     pdf.text(['لخدمات العمرة و الزيارة',
-      `ترخيص : ${this.licence} س ت : 5800021621`,
+      'ترخيص :120107000100  س ت : 5800021621',
     ], 200, 30, {
       align: 'center',
     });
