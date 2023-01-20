@@ -37,7 +37,7 @@ export class TicketCancelDialog {
   constructor(
     private travel: TravelRegisterService,
     @Inject(MAT_DIALOG_DATA) private data: number
-  ) {}
+  ) { }
   cancel() {
     this.travel.getInvoiceById(this.data).subscribe((invoice) => {
       this.travel
@@ -87,13 +87,13 @@ export class TicketCancelDialog {
                       nationality: ticket.nationality,
                     })
                     .subscribe({
-                      complete: () => {},
+                      complete: () => { },
                     });
                 },
               });
             });
           },
-          complete: () => {},
+          complete: () => { },
         });
     });
   }
@@ -154,7 +154,7 @@ export class InvoicesViewComponent implements OnInit {
           });
         });
       },
-      error: () => {},
+      error: () => { },
       complete: () => {
         this.awaitTimeout(200).then(() => {
           this.dataSource = new MatTableDataSource<ITicket>(this.ticketsView);
@@ -181,7 +181,7 @@ export class InvoicesViewComponent implements OnInit {
           });
         });
       },
-      error: (error) => {},
+      error: (error) => { },
       complete: () => {
         this.travel
           .generateQrCode({
@@ -206,7 +206,7 @@ export class InvoicesViewComponent implements OnInit {
       next: (value) => {
         this.ticketDetails = value;
       },
-      complete: () => {},
+      complete: () => { },
     });
     moment.locale();
 
@@ -229,9 +229,11 @@ export class InvoicesViewComponent implements OnInit {
     pdf.setFontSize(18);
     //header
     //right section
-    pdf.text(['الكســـــــار'], 170, 5, {
+    pdf.text(['الكســـــــــار',
+    ], 170, 10, {
       align: 'center',
     });
+    pdf.setFontSize(8);
     pdf.text(['لخدمات العمرة و الزيارة',
       'ترخيص : 120107000100  س ت : 5800021621',
       'هاتف : 0177253157 جوال المكتب : 0559738321',
