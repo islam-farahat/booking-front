@@ -203,9 +203,9 @@ export class DetailsComponent implements OnInit {
     pdf.text('تذكرة سفر', 105, 10, {
       align: 'center',
     });
-    pdf.text(['الكسار', 'لخدمات العمرة و الزيارة'], 200, 10, {
-      align: 'right',
-    });
+    // pdf.text(['الكسار', 'لخدمات العمرة و الزيارة'], 200, 10, {
+    //   align: 'right',
+    // });
     autoTable(pdf, {
       margin: { top: 30 },
       theme: 'plain',
