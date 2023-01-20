@@ -226,7 +226,7 @@ export class InvoicesViewComponent implements OnInit {
     var pdf = new jsPDF('p', 'mm', 'a4');
     pdf.addFont('assets/fonts/Amiri-Regular.ttf', 'Amiri', 'normal');
     pdf.setFont('Amiri');
-    pdf.setFontSize(18);
+    pdf.setFontSize(14);
 
     // pdf.rect(
     //   3,
@@ -238,11 +238,9 @@ export class InvoicesViewComponent implements OnInit {
 
     //header
     //right section
-    pdf.text(['الكســـــــــــــار'], 200, 10, {
-      align: 'center',
-    });
-    pdf.setFontSize(14);
-    pdf.text(['لخدمات العمرة و الزيارة'], 200, 10, {
+    pdf.text(['لخدمات العمرة و الزيارة',
+      `ترخيص : ${this.licence} س ت : 5800021621`,
+    ], 200, 30, {
       align: 'center',
     });
 
