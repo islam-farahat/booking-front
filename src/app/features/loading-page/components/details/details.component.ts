@@ -184,13 +184,20 @@ export class DetailsComponent implements OnInit {
     pdf.setFont('Amiri');
     pdf.setFontSize(18);
 
-    pdf.rect(
-      3,
-      3,
-      pdf.internal.pageSize.width - 6,
-      pdf.internal.pageSize.height - 6,
-      'S'
-    );
+    // pdf.rect(
+    //   3,
+    //   3,
+    //   pdf.internal.pageSize.width - 6,
+    //   pdf.internal.pageSize.height - 6,
+    //   'S'
+    // );
+
+    //header
+    //right section
+    pdf.text('تذكرة سفر', 200, 10, {
+      align: 'center',
+    });
+
     pdf.addImage(img, 'jpg', 10, 5, 25, 25);
 
     pdf.text('تذكرة سفر', 105, 10, {
