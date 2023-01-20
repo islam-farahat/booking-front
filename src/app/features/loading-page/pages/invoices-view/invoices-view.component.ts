@@ -226,18 +226,12 @@ export class InvoicesViewComponent implements OnInit {
     var pdf = new jsPDF('p', 'mm', 'a4');
     pdf.addFont('assets/fonts/Amiri-Regular.ttf', 'Amiri', 'normal');
     pdf.setFont('Amiri');
-    pdf.setFontSize(10);
-
-    // pdf.rect(
-    //   3,
-    //   3,
-    //   pdf.internal.pageSize.width - 6,
-    //   pdf.internal.pageSize.height - 6,
-    //   'S'
-    // );
-
+    pdf.setFontSize(18);
     //header
     //right section
+    pdf.text(['الكســـــــار'], 170, 5, {
+      align: 'center',
+    });
     pdf.text(['لخدمات العمرة و الزيارة',
       'ترخيص : 120107000100  س ت : 5800021621',
       'هاتف : 0177253157 جوال المكتب : 0559738321',
@@ -250,7 +244,7 @@ export class InvoicesViewComponent implements OnInit {
     pdf.text('تذكرة سفر', 105, 10, {
       align: 'center',
     });
-    pdf.addImage(img, 'jpg', 10, 5, 25, 25);
+    pdf.addImage(img, 'jpg', 105, 25, 25, 25);
     // pdf.text(['الكسار', 'لخدمات العمرة و الزيارة'], 200, 10, {
     //   align: 'right',
     // });
