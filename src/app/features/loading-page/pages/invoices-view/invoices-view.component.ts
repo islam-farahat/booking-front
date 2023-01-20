@@ -240,7 +240,7 @@ export class InvoicesViewComponent implements OnInit {
     //right section
     pdf.text(['لخدمات العمرة و الزيارة',
       'ترخيص :120107000100  س ت : 5800021621',
-    ], 200, 30, {
+    ], 200, 10, {
       align: 'center',
     });
 
