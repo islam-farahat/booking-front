@@ -233,13 +233,25 @@ export class InvoicesViewComponent implements OnInit {
     ], 170, 10, {
       align: 'center',
     });
+    pdf.text(['AL-KASSAR',
+    ], 10, 10, {
+      align: 'center',
+    });
     pdf.setFontSize(8);
     pdf.text(['لخدمات العمرة و الزيارة',
       'ترخيص : 120107000100  س ت : 5800021621',
       'هاتف : 0177253157 جوال المكتب : 0559738321',
       'جوال : 0504760563 - 0552836914',
       'الباحة-الشارع العام-مقابل اكسترا'
-    ], 170, 10, {
+    ], 170, 15, {
+      align: 'center',
+    });
+    pdf.text(['for Umrah & visit service',
+      'licence : 120107000100  c.r. : 5800021621',
+      'Tel : 0177253157 Office : 0559738321',
+      'Mob : 0504760563 - 0552836914',
+      'Al-Baha-Main ST. opp. Extra'
+    ], 10, 15, {
       align: 'center',
     });
 
