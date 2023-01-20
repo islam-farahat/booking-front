@@ -226,7 +226,7 @@ export class InvoicesViewComponent implements OnInit {
     var pdf = new jsPDF('p', 'mm', 'a4');
     pdf.addFont('assets/fonts/Amiri-Regular.ttf', 'Amiri', 'normal');
     pdf.setFont('Amiri');
-    pdf.setFontSize(8);
+    pdf.setFontSize(10);
 
     // pdf.rect(
     //   3,
@@ -243,7 +243,7 @@ export class InvoicesViewComponent implements OnInit {
       'هاتف : 0177253157 جوال المكتب : 0559738321',
       'جوال : 0504760563 - 0552836914',
       'الباحة-الشارع العام-مقابل اكسترا'
-    ], 180, 10, {
+    ], 170, 10, {
       align: 'center',
     });
 
