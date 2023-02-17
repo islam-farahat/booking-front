@@ -251,7 +251,7 @@ export class InvoicesViewComponent implements OnInit {
       'Tel : 0177253157 Office : 0559738321',
       'Mob : 0504760563 - 0552836914',
       'Al-Baha-Main ST. opp. Extra'
-    ], 40, 15, {
+    ], 45, 15, {
       align: 'center',
     });
 
