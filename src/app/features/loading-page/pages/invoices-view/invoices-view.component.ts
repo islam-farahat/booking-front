@@ -234,7 +234,7 @@ export class InvoicesViewComponent implements OnInit {
       align: 'center',
     });
     pdf.text(['AL-KASSAR',
-    ], 10, 10, {
+    ], 30, 10, {
       align: 'center',
     });
     pdf.setFontSize(8);
