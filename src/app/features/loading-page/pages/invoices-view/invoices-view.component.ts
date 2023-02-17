@@ -255,7 +255,7 @@ export class InvoicesViewComponent implements OnInit {
       align: 'center',
     });
 
-    pdf.text('تذكرة سفر', 105, 10, {
+    pdf.text('فاتورة ضريبية', 105, 10, {
       align: 'center',
     });
     pdf.addImage(img, 'jpg', 105, 25, 25, 25);
