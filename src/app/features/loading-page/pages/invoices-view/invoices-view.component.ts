@@ -258,7 +258,7 @@ export class InvoicesViewComponent implements OnInit {
     pdf.text('فاتورة ضريبية', 105, 10, {
       align: 'center',
     });
-    pdf.addImage(img, 'jpg', 105, 25, 25, 25);
+    pdf.addImage(img, 'jpg', 100, 15, 25, 25);
     // pdf.text(['الكسار', 'لخدمات العمرة و الزيارة'], 200, 10, {
     //   align: 'right',
     // });
