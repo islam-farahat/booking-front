@@ -263,7 +263,7 @@ export class InvoicesViewComponent implements OnInit {
     //   align: 'right',
     // });
     autoTable(pdf, {
-      margin: { top: 30 },
+      margin: { top: 35 },
       theme: 'plain',
       bodyStyles: { font: 'Amiri', halign: 'right' },
       body: [
