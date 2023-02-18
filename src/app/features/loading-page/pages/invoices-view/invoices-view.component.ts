@@ -237,6 +237,7 @@ export class InvoicesViewComponent implements OnInit {
     ], 40, 10, {
       align: 'center',
     });
+
     pdf.setFontSize(8);
     pdf.text(['لخدمات العمرة و الزيارة',
       'ترخيص : 120107000100  س ت : 5800021621',
@@ -259,9 +260,7 @@ export class InvoicesViewComponent implements OnInit {
       align: 'center',
     });
     pdf.addImage(img, 'jpg', 92.5, 10, 25, 25);
-    // pdf.text(['الكسار', 'لخدمات العمرة و الزيارة'], 200, 10, {
-    //   align: 'right',
-    // });
+
     autoTable(pdf, {
       margin: { top: 35 },
       theme: 'plain',
@@ -321,13 +320,34 @@ export class InvoicesViewComponent implements OnInit {
 
       body: [[this.trip.time, moment(this.trip.date).format('L')]],
     });
-    pdf.line(10, 145, 200, 145);
+    // pdf.line(10, 160, 200, 160);
     pdf.setFontSize(16);
-    pdf.text(this.terms, 200, 170, {
-      align: 'right',
+
+
+
+    let terms = this.terms.map((str, index) => ({ term: str, id: '-' + (index + 1).toString() }));
+
+
+    autoTable(pdf, {
+      margin: { top: 90 },
+      theme: 'plain',
+
+      bodyStyles: { font: 'Amiri', halign: 'right', fontSize: 12 },
+      columnStyles: {
+        term: { cellWidth: 'auto' },
+        id: { cellWidth: 7 },
+      },
+
+      body: terms,
+      columns: [
+        { dataKey: 'term' },
+        { dataKey: 'id' },
+
+      ],
+
     });
 
-    pdf.addImage(this.qr, 'jpg', 160, 200, 40, 40);
+    pdf.addImage(this.qr, 'jpg', 160, 230, 40, 40);
     pdf.text('نتمني لكم رحلة سعيدة', 110, 280, { align: 'center' });
 
     pdf.autoPrint();

@@ -50,7 +50,7 @@ export class DetailsComponent implements OnInit {
     private busSelect: BusSelectService,
     private travel: TravelRegisterService,
     private snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   async ngOnInit(): Promise<void> {
     this.busSelect.chairCount.subscribe((value) => {
@@ -68,7 +68,7 @@ export class DetailsComponent implements OnInit {
       next: (value) => {
         this.ticketDetails = value;
       },
-      complete: () => {},
+      complete: () => { },
     });
 
     this.awaitTimeout(1000).then(() => {
@@ -130,7 +130,7 @@ export class DetailsComponent implements OnInit {
           complete: true,
         })
         .subscribe({
-          error: (e) => {},
+          error: (e) => { },
           next: (ticket) => {
             this.tickets.push(ticket);
             this.ticketId[i] = ticket.id!;
@@ -174,6 +174,7 @@ export class DetailsComponent implements OnInit {
       });
   }
 
+
   pdf() {
     this.pdfBody = this.tickets;
     var img = new Image();
@@ -184,30 +185,41 @@ export class DetailsComponent implements OnInit {
     pdf.setFont('Amiri');
     pdf.setFontSize(18);
 
-    // pdf.rect(
-    //   3,
-    //   3,
-    //   pdf.internal.pageSize.width - 6,
-    //   pdf.internal.pageSize.height - 6,
-    //   'S'
-    // );
 
-    //header
-    //right section
-    pdf.text('تذكرة سفر', 200, 10, {
+
+    pdf.text(['الكســـــــــار',
+    ], 170, 10, {
+      align: 'center',
+    });
+    pdf.text(['AL-KASSAR',
+    ], 40, 10, {
       align: 'center',
     });
 
-    pdf.addImage(img, 'jpg', 10, 5, 25, 25);
-
-    pdf.text('تذكرة سفر', 105, 10, {
+    pdf.setFontSize(8);
+    pdf.text(['لخدمات العمرة و الزيارة',
+      'ترخيص : 120107000100  س ت : 5800021621',
+      'هاتف : 0177253157 جوال المكتب : 0559738321',
+      'جوال : 0504760563 - 0552836914',
+      'الباحة-الشارع العام-مقابل اكسترا'
+    ], 170, 15, {
       align: 'center',
     });
-    // pdf.text(['الكسار', 'لخدمات العمرة و الزيارة'], 200, 10, {
-    //   align: 'right',
-    // });
+    pdf.text(['for Umrah & visit service',
+      'licence : 120107000100  c.r. : 5800021621',
+      'Tel : 0177253157 Office : 0559738321',
+      'Mob : 0504760563 - 0552836914',
+      'Al-Baha-Main ST. opp. Extra'
+    ], 40, 15, {
+      align: 'center',
+    });
+
+    pdf.text('فاتورة ضريبية', 105, 6, {
+      align: 'center',
+    });
+    pdf.addImage(img, 'jpg', 92.5, 10, 25, 25);
     autoTable(pdf, {
-      margin: { top: 30 },
+      margin: { top: 35 },
       theme: 'plain',
       bodyStyles: { font: 'Amiri', halign: 'right' },
       body: [
@@ -220,7 +232,7 @@ export class DetailsComponent implements OnInit {
         [this.currentDate, 'التاريخ', this.id, 'رقم التذكرة'],
       ],
     });
-    pdf.line(10, 50, 200, 50);
+    pdf.line(10, 53, 200, 53);
 
     autoTable(pdf, {
       margin: { top: 75 },
@@ -264,13 +276,32 @@ export class DetailsComponent implements OnInit {
 
       body: [[this.trip.time, moment(this.trip.date).format('L')]],
     });
-    pdf.line(10, 145, 200, 145);
     pdf.setFontSize(16);
-    pdf.text(this.ticketDetails.terms, 200, 170, {
-      align: 'right',
+
+
+    let terms = this.ticketDetails.terms.map((str, index) => ({ term: str, id: '-' + (index + 1).toString() }));
+
+
+    autoTable(pdf, {
+      margin: { top: 90 },
+      theme: 'plain',
+
+      bodyStyles: { font: 'Amiri', halign: 'right', fontSize: 12 },
+      columnStyles: {
+        term: { cellWidth: 'auto' },
+        id: { cellWidth: 7 },
+      },
+
+      body: terms,
+      columns: [
+        { dataKey: 'term' },
+        { dataKey: 'id' },
+
+      ],
+
     });
 
-    pdf.addImage(this.qr, 'jpg', 160, 200, 40, 40);
+    pdf.addImage(this.qr, 'jpg', 160, 230, 40, 40);
     pdf.text('نتمني لكم رحلة سعيدة', 110, 280, { align: 'center' });
 
     pdf.autoPrint();
@@ -301,4 +332,8 @@ export class DetailsComponent implements OnInit {
     hiddFrame.src = pdf.output('bloburl').toString();
     document.body.appendChild(hiddFrame);
   }
+
+
+
+
 }
