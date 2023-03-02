@@ -165,6 +165,7 @@ export class InvoicesViewComponent implements OnInit {
         this.awaitTimeout(200).then(() => {
           this.dataSource = new MatTableDataSource<ITicket>(this.ticketsView);
           this.dataSource.paginator = this.paginator;
+          this.dataSource._updateChangeSubscription();
         });
       },
     });
@@ -200,13 +201,15 @@ export class InvoicesViewComponent implements OnInit {
             vatNumber: this.ticketDetails.vatSerial,
             vatTotal: (Number(this.trip.price) * 0.15).toString(),
           })
-          .subscribe((qrcode) => {
-            this.qr.src = String(qrcode);
+          .subscribe({
+            next: (qrcode) => {
+              this.qr.src = String(qrcode);
+            },
+            complete: () => {
+              this.pdf();
+            },
           });
 
-        this.awaitTimeout(200).then(() => {
-          this.pdf();
-        });
       },
     });
   }
