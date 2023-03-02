@@ -1,7 +1,32 @@
-<form [formGroup]="details" (ngSubmit)="submit()">
-  <div class="row">
-    <div class="col-12">
+<div class="row">
+  <div class="col-4">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>نوع الغرفة</mat-label>
+      <mat-select [(ngModel)]="roomType">
+        <mat-option value="بدون">بدون</mat-option>
+        <mat-option value="غرفة مفردة">غرفة مفردة</mat-option>
+        <mat-option value="غرفة مزدوجة">غرفة مزدوجة</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="col-4">
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>عدد الغرف</mat-label>
+      <input [(ngModel)]="roomCount" matInput placeholder="عدد الغرف" />
+    </mat-form-field>
+  </div>
+  <div class="col-4">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>سعر الغرفة</mat-label>
+      <input [(ngModel)]="roomCost" matInput placeholder="سعر الغرفة" />
+    </mat-form-field>
+  </div>
+
+  <div class="col-12">
+    <form [formGroup]="details" (ngSubmit)="submit()">
       <div formArrayName="person" *ngFor="let item of person.controls; let i = index">
+
         <div [formGroupName]="i" class="row">
           <div class="col-6">
             <mat-form-field appearance="outline" class="w-100">
@@ -28,17 +53,14 @@
             </mat-form-field>
           </div>
           <mat-divider class="pb-3"></mat-divider>
+
         </div>
       </div>
-    </div>
-    <div class="col-auto">
-      <button [disabled]="details.controls['person'].invalid" type="submit" mat-flat-button color="primary"
-        class="w-100">
+      <button [disabled]="details.controls['person'].invalid" type="submit" mat-flat-button color="primary">
         حفظ و طباعة<mat-icon class="me-1 ">print</mat-icon>
       </button>
-    </div>
-    <div class="col-1">
-
-    </div>
+    </form>
   </div>
-</form>
+
+
+</div>

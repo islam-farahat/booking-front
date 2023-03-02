@@ -20,7 +20,7 @@ export class SettingsComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'price', 'date'];
 
-  constructor(private travel: TravelRegisterService) {}
+  constructor(private travel: TravelRegisterService) { }
 
   ngOnInit(): void {
     this.getInvoices();
@@ -31,8 +31,10 @@ export class SettingsComponent implements OnInit {
         this.travel.getTrip(obj.tripId).subscribe((trip) => {
           if (obj.complete == true) {
             this.total += obj.ticketId.length * Number(trip.price);
+            this.total += obj.roomCost! * obj.roomCount!;
           } else {
             this.throwback += obj.ticketId.length * Number(trip.price);
+            this.throwback += obj.roomCost! * obj.roomCount!;
           }
 
           trip.id = obj.id;

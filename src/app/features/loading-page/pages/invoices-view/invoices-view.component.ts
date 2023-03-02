@@ -105,6 +105,10 @@ export class TicketCancelDialog {
   styleUrls: ['./invoices-view.component.scss'],
 })
 export class InvoicesViewComponent implements OnInit {
+
+  roomCost: number = 0;
+  roomCount: number = 0;
+  roomType: string = '';
   displayedColumns: string[] = [
     'id',
     'fullName',
@@ -145,10 +149,12 @@ export class InvoicesViewComponent implements OnInit {
   ) {
     this.travel.getInvoices().subscribe({
       next: (obj) => {
+
         obj.forEach((value) => {
           this.travel.getTicket(value.ticketId[0]).subscribe((ticket) => {
             ticket.id = value.id;
             ticket.date = value.date;
+
 
             this.ticketsView.push(Object.assign({}, ticket));
           });
@@ -171,6 +177,9 @@ export class InvoicesViewComponent implements OnInit {
   print(invoiceId: number) {
     this.travel.getInvoiceById(invoiceId).subscribe({
       next: (invoice) => {
+        this.roomCost = invoice.roomCost!;
+        this.roomCount = invoice.roomCount!;
+        this.roomType = invoice.roomType!;
         this.Invoice = invoice;
         this.travel.getTrip(invoice.tripId).subscribe((trip: ITrip) => {
           this.trip = trip;
@@ -320,7 +329,27 @@ export class InvoicesViewComponent implements OnInit {
 
       body: [[this.trip.time, moment(this.trip.date).format('L')]],
     });
-    // pdf.line(10, 160, 200, 160);
+
+    autoTable(pdf, {
+      margin: { top: 90 },
+      theme: 'striped',
+      headStyles: { font: 'Amiri', halign: 'right' },
+
+      bodyStyles: { font: 'Amiri', halign: 'right' },
+      head: [['الاجمالي', 'سعر الغرفة', 'العدد', 'نوع الغرفة']],
+
+      body: [[this.roomCost * this.roomCount, this.roomCost, this.roomCount, this.roomType]],
+    });
+    autoTable(pdf, {
+      margin: { top: 90 },
+      theme: 'striped',
+      headStyles: { font: 'Amiri', halign: 'right' },
+
+      bodyStyles: { font: 'Amiri', halign: 'right' },
+      head: [['اجمالي الضرائب', 'اجمالي التذكرة',]],
+
+      body: [[((this.roomCost * this.roomCount) + (Number(this.trip.price) * this.tickets.length)) * 0.15, (this.roomCost * this.roomCount) + (Number(this.trip.price) * this.tickets.length),]],
+    });
     pdf.setFontSize(16);
 
 

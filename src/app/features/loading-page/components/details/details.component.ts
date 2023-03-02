@@ -17,6 +17,9 @@ import * as moment from 'moment';
   styleUrls: ['./details.component.scss'],
 })
 export class DetailsComponent implements OnInit {
+  roomType: string = '';
+  roomCost: number = 0;
+  roomCount: number = 0;
   qr = new Image();
   ticketId: number[] = [];
   chairCount!: number;
@@ -50,7 +53,9 @@ export class DetailsComponent implements OnInit {
     private busSelect: BusSelectService,
     private travel: TravelRegisterService,
     private snackBar: MatSnackBar
-  ) { }
+  ) {
+
+  }
 
   async ngOnInit(): Promise<void> {
     this.busSelect.chairCount.subscribe((value) => {
@@ -159,6 +164,9 @@ export class DetailsComponent implements OnInit {
         tripId: this.tripId.value,
         date: moment(new Date()).format('YYYY-MM-DD'),
         complete: true,
+        roomCost: this.roomCost,
+        roomCount: this.roomCount,
+        roomType: this.roomType,
       })
       .subscribe({
         next: (value) => {
@@ -276,6 +284,28 @@ export class DetailsComponent implements OnInit {
 
       body: [[this.trip.time, moment(this.trip.date).format('L')]],
     });
+
+    autoTable(pdf, {
+      margin: { top: 90 },
+      theme: 'striped',
+      headStyles: { font: 'Amiri', halign: 'right' },
+
+      bodyStyles: { font: 'Amiri', halign: 'right' },
+      head: [['الاجمالي', 'سعر الغرفة', 'العدد', 'نوع الغرفة']],
+
+      body: [[this.roomCost * this.roomCount, this.roomCost, this.roomCount, this.roomType]],
+    });
+    autoTable(pdf, {
+      margin: { top: 90 },
+      theme: 'striped',
+      headStyles: { font: 'Amiri', halign: 'right' },
+
+      bodyStyles: { font: 'Amiri', halign: 'right' },
+      head: [['اجمالي الضرائب', 'اجمالي التذكرة',]],
+
+      body: [[((this.roomCost * this.roomCount) + (Number(this.trip.price) * this.tickets.length)) * 0.15, (this.roomCost * this.roomCount) + (Number(this.trip.price) * this.tickets.length),]],
+    });
+
     pdf.setFontSize(16);
 
 

@@ -4,4 +4,7 @@ export interface Invoice {
   tripId: number;
   complete?: boolean;
   date: string;
+  roomType?: string;
+  roomCost?: number;
+  roomCount?: number;
 }
